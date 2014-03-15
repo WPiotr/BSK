@@ -1,0 +1,13 @@
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\bin\Debug\BSK1.exe.config
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\BSK1.csprojResolveAssemblyReference.cache
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\App.g.cs
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\BSK1_MarkupCompile.cache
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\MainWindow.baml
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\MainWindow.g.cs
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\BSK1.g.resources
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\BSK1.Properties.Resources.resources
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\BSK1.csproj.GenerateResource.Cache
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\bin\Debug\BSK1.exe
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\bin\Debug\BSK1.pdb
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\BSK1.exe
+C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\BSK1\BSK1\obj\Debug\BSK1.pdb
