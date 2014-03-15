@@ -57,14 +57,39 @@ namespace BSK1
         }
         // Deszyfrowanie RailFence
 
-        private static String RailFenceDecrypt(int k, String text) {
-            String result = "";
-            
-            foreach (char z in text) {
-                
+        public static String RailFenceDecrypt(int k, String text) {
+            Char[] result = new Char[text.Length];
+            int nextIndex = 0;
+            // Znalezienie górnych liter
+            for (int i = 0; i * (2 * k - 2) < text.Length; i++) {
+                result[i * (2 * k - 2)] = text[nextIndex];
+                nextIndex++;
             }
             
-            return null;
+            //Znalezienie środkowych liter
+            for (int i = 1; i <= k - 2; i++) {
+                for (int j = 0; j * ((2 * k) - 2) < text.Length; j++) {
+                    int index = j * ((2 * k) - 2);
+                    if (index - i > 0) {
+                        result[index - i] = text[nextIndex];
+                        nextIndex++;
+                    }
+                    if (index + i < text.Length) {
+                        result[index + i] = text[nextIndex];
+                        nextIndex++;
+                    }
+                }
+            }
+
+            //znalezienie dolnych liter
+            for (int i = 0; i * (2 * k - 2)+k-1 < text.Length; i++)
+            {
+                result[i * (2 * k - 2)+k-1] = text[nextIndex];
+                nextIndex++;
+            }
+
+
+            return new String(result);
         }
 
      

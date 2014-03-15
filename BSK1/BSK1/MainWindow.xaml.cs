@@ -29,7 +29,14 @@ namespace BSK1
 
         private void Decryption1(object sender, RoutedEventArgs e)
         {
-
+            if (k.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+                result.Text = Utils.RailFenceDecrypt(int.Parse(k.Text), input.Text);
+            }
         }
 
         private void Encrypt1(object sender, RoutedEventArgs e)

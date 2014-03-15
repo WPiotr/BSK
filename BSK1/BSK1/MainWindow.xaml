@@ -19,7 +19,7 @@
             <Label HorizontalAlignment="Center" Content="Napis do Zaszyfrowania/rozszyfrowania"/>
             <TextBox Name="input" Margin="5"/>
             <Label HorizontalAlignment="Center" Content="Wynik:"/>
-            <TextBox Name="result" Margin="5" IsEnabled="False" />
+            <TextBox Name="result" Margin="5" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="0">
