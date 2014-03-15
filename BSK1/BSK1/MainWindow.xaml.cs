@@ -36,7 +36,7 @@ namespace BSK1
         {
             if (k.Text == "" || input.Text == "")
             {
-                MessageBox.Show("Wprowadz wymagane pola!");
+                MessageBox.Show("Wprowadz poprawne dane !");
             }
             else 
             {
