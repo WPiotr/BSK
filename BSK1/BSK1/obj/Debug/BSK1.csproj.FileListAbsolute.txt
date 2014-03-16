@@ -24,3 +24,6 @@ C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\Repo\BSK\BSK1\BSK1\obj\Debug\BSK1.g.
 C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\Repo\BSK\BSK1\BSK1\obj\Debug\BSK1.Properties.Resources.resources
 C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\Repo\BSK\BSK1\BSK1\obj\Debug\BSK1.csproj.GenerateResource.Cache
 C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\Repo\BSK\BSK1\BSK1\obj\Debug\BSK1.pdb
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\bin\Debug\BSK1.exe.config
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.exe
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.pdb
