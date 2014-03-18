@@ -71,39 +71,32 @@ namespace BSK1
                 result[i * (2 * k - 2)] = text[nextIndex];
                 nextIndex++;
             }
-
-           
-
-           // Znalezienie środkowych liter
-            for (int i = 1; i <= k - 2; i++)
+           // Znalezienie środkowych literW
+            for (int j = 1; j < k - 1; j++)
             {
-                for (int j = 0; j * ((2 * k) - 2) < text.Length; j++)
+                for (int i = 0; i < text.Length; i++)
                 {
-                    int index = j * ((2 * k) - 2);
-                    if (index - i > 0)
+
+                    if (i % (2 * k - 2) == j)
                     {
-                        result[index - i] = text[nextIndex];
+                        result[i] += text[nextIndex];
                         nextIndex++;
                     }
-                    if (index + i < text.Length)
+
+                    if (i % ((2 * k - 2)) == (2 * k - 2) - j)
                     {
-                        result[index + i] = text[nextIndex];
+                        result[i] += text[nextIndex];
                         nextIndex++;
                     }
                 }
+
             }
-
-            
-
            // znalezienie dolnych liter
             for (int i = 0; i * (2 * k - 2) + k - 1 < text.Length; i++)
             {
                 result[i * (2 * k - 2) + k - 1] = text[nextIndex];
                 nextIndex++;
             }
-
-          
-
             return new String(result);
         }
     }
