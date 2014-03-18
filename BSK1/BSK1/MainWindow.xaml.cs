@@ -59,28 +59,8 @@ namespace BSK1
             }
             else
             {
-                int[] key = makeKey(key2.Text);
-
-                result.Text = SwitchingMatrix.encrypt(input.Text, key);
+                result.Text = SwitchingMatrix.encrypt(input.Text, SwitchingMatrix.makeKeyFromLetter(key2.Text));
             }
-        }
-        private int[] makeKey(String key)
-        {
-            int[] newKey = new int[key.Length];
-
-            for (int i = 0, globalMin = 0; i < key.Length; i++)
-            {
-                int minIndex = globalMin;
-                for (int j = 0; j < key2.Text.Length; j++)
-                {
-                    if (key[j] < key[globalMin] && key[j] < key[minIndex])
-                    {
-                        minIndex = j;
-                    }
-                }
-                newKey[minIndex] = i;
-            }
-            return newKey;
         }
 
         private void Decryption2(object sender, RoutedEventArgs e)
@@ -91,12 +71,8 @@ namespace BSK1
             }
             else
             {
-                int[] key = new int[key2.Text.Length];
-                for (int i = 0; i < key.Length; i++)
-                {
-                    key[i] = key2.Text[i] - 'A';
-                }
-                result.Text = SwitchingMatrix.encrypt(SwitchingMatrix.transformMessage(input.Text, key), SwitchingMatrix.transformKey(key));
+                int[] key = SwitchingMatrix.makeKeyFromLetter(key2.Text);
+                result.Text = SwitchingMatrix.encrypt(SwitchingMatrix.transformMessageForEncrypt1(input.Text, key), SwitchingMatrix.transformKey(key));
             }
 
         }

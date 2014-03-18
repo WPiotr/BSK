@@ -8,14 +8,38 @@ namespace BSK1
 {
     // Zadanie pierwsze
     // encrypt(message,key); szyfrowanie
-    // encrypt(transformMessage(message),transformKey(key)); rozszyfrowanie
+    // encrypt(transformMessageForEncrypt1(message),transformKey(key)); rozszyfrowanie
 
     // Zadanie drugie
     // encryptB(message,transformKey(key));
-    // descryptB(transformMessage(message),key); // nei wiem czy zadziala, trzeba chyba zmienic transformMessage
+    // descryptB(transformMessageForEncrypt1(message),key); // nei wiem czy zadziala, trzeba chyba zmienic transformMessageForEncrypt1
 
-    class SwitchingMatrix
+    public class SwitchingMatrix
     {
+
+        public static int[] makeKeyFromLetter(String key)
+        {
+            int[] newKey = new int[key.Length];
+            Dictionary<int, char> mapKey = new Dictionary<int, char>();
+            for (int i = 0; i < newKey.Length; i++)
+            {
+                mapKey[i] = key[i];
+            }
+            for (int i = 0; i < key.Length; i++)
+            {
+                KeyValuePair<int, char> min = mapKey.First();
+                foreach (KeyValuePair<int,char> pair in mapKey)
+                {
+                    if(min.Value>pair.Value){
+                        min = pair;
+                    }
+                }
+                newKey[min.Key] = i;
+                mapKey.Remove(min.Key);
+            }
+            return newKey;
+        }
+        //2a 
         public static String encrypt(String message, int[] key)
         {
             String encrypted = "";
@@ -28,6 +52,7 @@ namespace BSK1
             }
             return encrypted;
         }
+
         public static int[] transformKey(int[] key)
         {
             int[] newKey = new int[key.Length];
@@ -37,7 +62,8 @@ namespace BSK1
             }
             return newKey;
         }
-        public static String transformMessage(String message, int[] key)
+
+        public static String transformMessageForEncrypt1(String message, int[] key)
         {
             String transformMessage = "";
             for (int i = 0; i < ((message.Length / key.Length) * key.Length); i++)
@@ -59,6 +85,24 @@ namespace BSK1
             }
             return transformMessage;
         }
+
+        public static String transformMessageForDescrypt2(String message, int[] key)
+        {
+            String transformMessage = "";
+            for (int i = 0, j=0; i < message.Length-message.Length%key.Length + key.Length; i++)
+            {
+                if ((i + 1) % (message.Length / key.Length + 1) == 0 && key[i / (message.Length / key.Length + 1)] >= message.Length % key.Length)
+                {
+                    transformMessage += ' ';
+                }
+                else
+                {
+                    transformMessage += message[j++];
+                }
+            }
+            return transformMessage;
+        }
+
         public static String encryptB(String message, int[] key)
         {
             String encrypted = "";
@@ -75,10 +119,11 @@ namespace BSK1
         public static String descryptB(String message, int[] key)
         {
             String descrypted = "";
-            for (int i = 0; i < key.Length; i++)
+            for (int i = 0; i < message.Length/key.Length; i++)
             {
-                for (int j = 0; j < message.Length / key.Length; j++)
+                for (int j = 0; j < key.Length; j++)
                 {
+                    int wtf = key[j] * (message.Length / key.Length) + i;
                     descrypted += message[key[j] * (message.Length / key.Length) + i];
                 }
             }
@@ -88,13 +133,14 @@ namespace BSK1
         {
             String encrypted = "";
 
-            for (int i = 0, length = 0; encrypted.Length < message.Length; i=(i+1)%key.Length)
+            for (int i = 0, length = 0; encrypted.Length < message.Length; i = (i + 1) % key.Length)
             {
-                length += key[i] + 1;
-                for (int n = length + key[i], j = i; n < message.Length;n+=key[j]+1,j= (j+1)%key.Length)
+                length += (key[i] + 1)%message.Length;
+                for (int n = 0, j = i; n < message.Length; n += key[j] + 1, j = (j + 1) % key.Length)
                 {
-                    if(key[i]<key[j]){
-                        encrypted+=message[n];
+                    if (key[i] <= key[j])
+                    {
+                        encrypted += message[n];
                     }
                 }
             }
@@ -103,19 +149,21 @@ namespace BSK1
         public static String descryptC(String message, int[] key)
         {
             String descrypted = "";
-            Dictionary<int,char> descryptedMap = new Dictionary<int,char>();
+            Dictionary<int, char> descryptedMap = new Dictionary<int, char>();
 
-            for (int i = 0, length = 0, l=0; l < message.Length; i=(i+1)%key.Length)
+            for (int i = 0, length = 0, l = 0; l < message.Length; i = (i + 1) % key.Length)
             {
                 length += key[i] + 1;
-                for (int n = length + key[i], j = i; n < message.Length;n+=key[j]+1,j=(j+1)%key.Length)
+                for (int n = length + key[i], j = i; n < message.Length; n += key[j] + 1, j = (j + 1) % key.Length)
                 {
-                    if(key[i]<key[j]){
+                    if (key[i] < key[j])
+                    {
                         descryptedMap[n] = message[l++];
                     }
                 }
             }
-            for(int i = 0;i<message.Length;i++){
+            for (int i = 0; i < message.Length; i++)
+            {
                 descrypted += descryptedMap[i];
             }
             return descrypted;
