@@ -9,13 +9,14 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="5">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="6">
             <Label HorizontalAlignment="Center" Content="Napis do Zaszyfrowania/rozszyfrowania"/>
             <TextBox Name="input" Margin="5"/>
             <Label HorizontalAlignment="Center" Content="Wynik:"/>
@@ -53,6 +54,16 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="3">
+            <Label Margin="5" HorizontalAlignment="Center" Content="Zadanie 3b"/>
+            <WrapPanel>
+                <Label Content="K:" />
+                <TextBox Name="key3b" Margin="5" Width="40" />
+            </WrapPanel>
+            <Button Click="Encrypt3b" Margin="5" Content="Szyfrowanie"/>
+            <Button Click="Decryption3b" Margin="5" Content="Deszyfrowanie"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="4">
             <Label Margin="5" HorizontalAlignment="Center" Content="Zadanie 4"/>
             <WrapPanel Width="80">
                 <Label Content="K1:" />
@@ -65,8 +76,13 @@
             <Button Click="Decryption4" Margin="5" Content="Deszyfrowanie"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="4">
+        <StackPanel Grid.Row="1" Grid.Column="5">
             <Label Margin="5" HorizontalAlignment="Center" Content="Zadanie 5"/>
+            <WrapPanel Width="80">
+                <Label Content="K:" />
+                <TextBox Name="key5" Margin="5" Width="40" />
+
+            </WrapPanel>
             <Button Click="Encrypt5" Margin="5" Content="Szyfrowanie"/>
             <Button Click="Decryption5" Margin="5" Content="Deszyfrowanie"/>
         </StackPanel>

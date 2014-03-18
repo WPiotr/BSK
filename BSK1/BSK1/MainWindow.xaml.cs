@@ -59,7 +59,9 @@ namespace BSK1
             }
             else
             {
-                result.Text = SwitchingMatrix.encrypt(input.Text, SwitchingMatrix.makeKeyFromLetter(key2.Text));
+                String key = key2.Text;
+                String message = input.Text;
+                result.Text = SwitchingMatrix.encrypt(message, SwitchingMatrix.makeKeyFromLetter(key));
             }
         }
 
@@ -71,32 +73,82 @@ namespace BSK1
             }
             else
             {
-                int[] key = SwitchingMatrix.makeKeyFromLetter(key2.Text);
-                result.Text = SwitchingMatrix.encrypt(SwitchingMatrix.transformMessageForEncrypt1(input.Text, key), SwitchingMatrix.transformKey(key));
+                String key = key2.Text;
+                String encrypted = input.Text;
+
+                int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+                result.Text = SwitchingMatrix.encrypt(SwitchingMatrix.transformMessageForEncrypt1(encrypted, key_table), SwitchingMatrix.transformKey(key_table));
             }
 
         }
 
         private void Encrypt3(object sender, RoutedEventArgs e)
         {
-            if (key1.Text == "" || input.Text == "")
+            if (key3.Text == "" || input.Text == "")
             {
                 MessageBox.Show("Wprowadz poprawne dane !");
             }
             else
             {
+                String key = key3.Text;
+                String message = input.Text;
+
+                int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+                result.Text = SwitchingMatrix.encryptB(message, SwitchingMatrix.transformKey(key_table));
             }
 
         }
 
         private void Decryption3(object sender, RoutedEventArgs e)
         {
-            if (key1.Text == "" || input.Text == "")
+            if (key3.Text == "" || input.Text == "")
             {
                 MessageBox.Show("Wprowadz poprawne dane !");
             }
             else
             {
+                String key = key3.Text;
+                String encrypted = input.Text;
+
+                int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+                result.Text = SwitchingMatrix.descryptB(SwitchingMatrix.transformMessageForDescrypt2(encrypted, key_table), key_table);
+            }
+
+        }
+
+        private void Encrypt3b(object sender, RoutedEventArgs e)
+        {
+            if (key3b.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+                String key = key3b.Text;
+                String message = input.Text;
+
+                int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+                result.Text =  SwitchingMatrix.encryptC(message, SwitchingMatrix.transformKey(key_table));
+
+
+            }
+
+        }
+
+        private void Decryption3b(object sender, RoutedEventArgs e)
+        {
+            if (key3b.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+                
+                String key = key3b.Text;
+                String encrypted = input.Text;
+
+                int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+                result.Text = SwitchingMatrix.descryptC(encrypted, SwitchingMatrix.transformKey(key_table));
             }
 
         }
@@ -130,11 +182,35 @@ namespace BSK1
         private void Encrypt5(object sender, RoutedEventArgs e)
         {
 
+            if (key5.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+
+                String key = key5.Text;
+                String message = input.Text;
+
+                result.Text = VigenereEncrypt.encrypt(message, key);
+            }
         }
 
         private void Decryption5(object sender, RoutedEventArgs e)
         {
 
+            if (key5.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+
+                String key = key5.Text;
+                String message = input.Text;
+
+                result.Text = VigenereEncrypt.descrypt(message, key);
+            }
         }
     }
 }
