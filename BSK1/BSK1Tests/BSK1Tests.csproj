@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="SwitchingMatrixTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VigenereEncryptTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSK1\BSK1.csproj">
