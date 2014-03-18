@@ -37,3 +37,6 @@ C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.Properties.Reso
 C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.csproj.GenerateResource.Cache
 C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\bin\Debug\BSK1.exe
 C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\bin\Debug\BSK1.pdb
+C:\Users\Piotr\Documents\GitHub\BSK\BSK1\BSK1\bin\Debug\BSK1.exe.config
+C:\Users\Piotr\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.exe
+C:\Users\Piotr\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.pdb
