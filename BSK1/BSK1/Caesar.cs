@@ -48,12 +48,12 @@ namespace BSK1
         {
             String result = "";
             char[] alphabet = new char[26];
-            for (int i = 1; i < 26; i++)
+            for (int i = 0; i < 26; i++)
             {
-                alphabet[i] = (char)(i + 96);
+                alphabet[i] = (char)(i + 97);
             }
             // https://www.wolframalpha.com/input/?i=%CF%86%2826%29 φ(26) - 1 = 11 
-            Double kk = (int)Math.Pow(k1, 11) % 26;
+            Double kk = (int)Math.Pow(k1, 11);
             // 10 bo za pierwszą iteracją jest juz 2 potega
             int newIndex = 0;
             foreach (char c in text)
