@@ -28,9 +28,10 @@ namespace BSK1
             for (int i = 0; i < key.Length; i++)
             {
                 KeyValuePair<int, char> min = mapKey.First();
-                foreach (KeyValuePair<int,char> pair in mapKey)
+                foreach (KeyValuePair<int, char> pair in mapKey)
                 {
-                    if(min.Value>pair.Value){
+                    if (min.Value > pair.Value)
+                    {
                         min = pair;
                     }
                 }
@@ -89,7 +90,7 @@ namespace BSK1
         public static String transformMessageForDescrypt2(String message, int[] key)
         {
             String transformMessage = "";
-            for (int i = 0, j=0; i < message.Length-message.Length%key.Length + key.Length; i++)
+            for (int i = 0, j = 0; i < message.Length - message.Length % key.Length + key.Length; i++)
             {
                 if ((i + 1) % (message.Length / key.Length + 1) == 0 && key[i / (message.Length / key.Length + 1)] >= message.Length % key.Length)
                 {
@@ -119,7 +120,7 @@ namespace BSK1
         public static String descryptB(String message, int[] key)
         {
             String descrypted = "";
-            for (int i = 0; i < message.Length/key.Length; i++)
+            for (int i = 0; i < message.Length / key.Length; i++)
             {
                 for (int j = 0; j < key.Length; j++)
                 {
@@ -133,10 +134,19 @@ namespace BSK1
         {
             String encrypted = "";
 
-            for (int i = 0, length = 0; encrypted.Length < message.Length; i = (i + 1) % key.Length)
+            for (int i = 0, length = 0,j=0; encrypted.Length < message.Length; i = (i + 1) % key.Length)
             {
-                length += (key[i] + 1)%message.Length;
-                for (int n = 0, j = i; n < message.Length; n += key[j] + 1, j = (j + 1) % key.Length)
+                length = 0;
+                for (j = 0; j < key.Length; j++)
+                {
+                    if (key[j] >= key[i])
+                    {
+                        break;
+                    }
+                    length += key[j]+1;
+                }
+                length += key[i];
+                for (int n = length; n < message.Length; n += key[j] + 1, j = (j + 1) % key.Length)
                 {
                     if (key[i] <= key[j])
                     {
@@ -151,12 +161,22 @@ namespace BSK1
             String descrypted = "";
             Dictionary<int, char> descryptedMap = new Dictionary<int, char>();
 
-            for (int i = 0, length = 0, l = 0; l < message.Length; i = (i + 1) % key.Length)
+
+            for (int i = 0, length = 0, j = 0,l=0; l < message.Length; i = (i + 1) % key.Length)
             {
-                length += key[i] + 1;
-                for (int n = length + key[i], j = i; n < message.Length; n += key[j] + 1, j = (j + 1) % key.Length)
+                length = 0;
+                for (j = 0; j < key.Length; j++)
                 {
-                    if (key[i] < key[j])
+                    if (key[j] >= key[i])
+                    {
+                        break;
+                    }
+                    length += key[j] + 1;
+                }
+                length += key[i];
+                for (int n = length; n < message.Length; n += key[j] + 1, j = (j + 1) % key.Length)
+                {
+                    if (key[i] <= key[j])
                     {
                         descryptedMap[n] = message[l++];
                     }

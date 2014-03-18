@@ -165,7 +165,15 @@ namespace BSK1Tests
         [TestMethod]
         public void descrypt3_test()
         {
+            String encrypted = "HEESPNIRRSSEESEIYASCBTEMGEPNANDICTRTAHSOIEERO";
+            String key = "CONVENIENCE";
+            String result_excepted = "HEREISASECRETMESSAGEENCIPHEREDBYTRANSPOSITION";
 
+            int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+
+            String result_actual = SwitchingMatrix.descryptC(encrypted, SwitchingMatrix.transformKey(key_table));
+
+            Assert.AreEqual(result_excepted, result_actual);
         }
     }
 
