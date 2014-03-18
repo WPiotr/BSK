@@ -127,24 +127,26 @@ namespace BSK1
 
         private void Encrypt4(object sender, RoutedEventArgs e)
         {
-            if (key1.Text == "" || input.Text == "")
+            if (key41.Text == "" || key42.Text == "" || input.Text == "")
             {
                 MessageBox.Show("Wprowadz poprawne dane !");
             }
             else
             {
+                result.Text = Caesar.Encrypt(input.Text, int.Parse(key41.Text), int.Parse(key42.Text));
             }
 
         }
 
         private void Decryption4(object sender, RoutedEventArgs e)
         {
-            if (key1.Text == "" || input.Text == "")
+            if (key41.Text == "" || key42.Text == "" || input.Text == "")
             {
                 MessageBox.Show("Wprowadz poprawne dane !");
             }
             else
             {
+                result.Text = Caesar.Decrypt(input.Text,int.Parse(key41.Text),int.Parse(key42.Text));
             }
 
         }
