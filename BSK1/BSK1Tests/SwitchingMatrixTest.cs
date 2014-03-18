@@ -96,7 +96,7 @@ namespace BSK1Tests
             Assert.AreEqual(result_excepted, result_actual);
         }
         [TestMethod]
-        public void encrypt1_test()
+        public void encrypt1_test_withNotFullStatment()
         {
             String message = "CRYPTOGRAPHYOSA";
             String key = "3142";
@@ -107,7 +107,7 @@ namespace BSK1Tests
             Assert.AreEqual(result_excepted, result_actual);
         }
         [TestMethod]
-        public void descrypt1_test()
+        public void descrypt1_test_withNotFullStatment()
         {
             String encrypted = "YCPRGTROHAYPAOS";
             String key = "3142";
@@ -122,7 +122,7 @@ namespace BSK1Tests
         // encryptB(message,transformKey(key));
         // descryptB(transformMessageForEncrypt1(message),key); 
         [TestMethod]
-        public void encrypt2_test()
+        public void encrypt2_test_withNotFullStatment()
         {
             String message = "HEREISASECRETMESSAGEENCIPHEREDBYTRANSPOSITION";
             String key = "CONVENIENCE";
@@ -136,7 +136,7 @@ namespace BSK1Tests
 
         }
         [TestMethod]
-        public void descrypt2_test()
+        public void descrypt2_test_withNotFullStatment()
         {
             String encrypted = "HECRNCEYIISEPSGDIRNTOAAESRMPNSSROEEBTETIAEEHS";
             String key = "CONVENIENCE";
@@ -149,7 +149,7 @@ namespace BSK1Tests
 
         }
         [TestMethod]
-        public void encrypt3_test()
+        public void encrypt3_test_withNotFullStatment()
         {
             String message = "HEREISASECRETMESSAGEENCIPHEREDBYTRANSPOSITION";
             String key = "CONVENIENCE";
@@ -163,7 +163,7 @@ namespace BSK1Tests
 
         }
         [TestMethod]
-        public void descrypt3_test()
+        public void descrypt3_test_withNotFullStatment()
         {
             String encrypted = "HEESPNIRRSSEESEIYASCBTEMGEPNANDICTRTAHSOIEERO";
             String key = "CONVENIENCE";
@@ -175,6 +175,85 @@ namespace BSK1Tests
 
             Assert.AreEqual(result_excepted, result_actual);
         }
-    }
+        [TestMethod]
+        public void encrypt1_test_withFullStatment()
+        {
+            String message = "CRYPTOGRAPHYOSSA";
+            String key = "3142";
+            String result_excepted = "YCPRGTROHAYPSOAS";
 
+            String result_actual = SwitchingMatrix.encrypt(message, SwitchingMatrix.makeKeyFromLetter(key));
+
+            Assert.AreEqual(result_excepted, result_actual);
+        }
+        [TestMethod]
+        public void descrypt1_test_withFullStatment()
+        {
+            String encrypted = "YCPRGTROHAYPSOAS";
+            String key = "3142";
+            String result_excepted = "CRYPTOGRAPHYOSSA";
+
+            int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+            String result_actual = SwitchingMatrix.encrypt(SwitchingMatrix.transformMessageForEncrypt1(encrypted, key_table), SwitchingMatrix.transformKey(key_table));
+            result_actual = result_actual.Remove(result_actual.IndexOf(' '), result_actual.Length - result_actual.IndexOf(' '));
+            Assert.AreEqual(result_excepted, result_actual);
+        }
+        // Zadanie drugie
+        // encryptB(message,transformKey(key));
+        // descryptB(transformMessageForEncrypt1(message),key); 
+        [TestMethod]
+        public void encrypt2_test_withFullStatment()
+        {
+            String message = "HEREISASECRETMESSAGEENCIPHEREDBYTRANSPOSITIO";
+            String key = "CONVENIENCE";
+            String result_excepted = "HECRCEYIISEPSGDIRNTOAAESRMPNSSROEEBTETIAEEHS";
+
+            int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+
+            String result_actual = SwitchingMatrix.encryptB(message, SwitchingMatrix.transformKey(key_table));
+
+            Assert.AreEqual(result_excepted, result_actual);
+
+        }
+        [TestMethod]
+        public void descrypt2_test_withFullStatment()
+        {
+            String encrypted = "HECRCEYIISEPSGDIRNTOAAESRMPNSSROEEBTETIAEEHS";
+            String key = "CONVENIENCE";
+            String result_excepted = "HEREISASECRETMESSAGEENCIPHEREDBYTRANSPOSITIO";
+
+            int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+            String result_actual = SwitchingMatrix.descryptB(SwitchingMatrix.transformMessageForDescrypt2(encrypted, key_table), key_table);
+            result_actual = result_actual.Remove(result_actual.IndexOf(' '), result_actual.Length - result_actual.IndexOf(' '));
+            Assert.AreEqual(result_excepted, result_actual);
+
+        }
+        [TestMethod]
+        public void encrypt3_test_withFullStatment()
+        {
+            String message = "HEREISASECRETMESSAGEENCIPHEREDBYTRANSPOSITI";
+            String key = "CONVENIENCE";
+            String result_excepted = "HEESPNIRRSSEESEIYASCBTEMGEPANDICTRTAHSIEERO";
+
+            int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+
+            String result_actual = SwitchingMatrix.encryptC(message, SwitchingMatrix.transformKey(key_table));
+
+            Assert.AreEqual(result_excepted, result_actual);
+
+        }
+        [TestMethod]
+        public void descrypt3_test_withFullStatment()
+        {
+            String encrypted = "HEESPNIRRSSEESEIYASCBTEMGEPANDICTRTAHSIEERO";
+            String key = "CONVENIENCE";
+            String result_excepted = "HEREISASECRETMESSAGEENCIPHEREDBYTRANSPOSITI";
+
+            int[] key_table = SwitchingMatrix.makeKeyFromLetter(key);
+
+            String result_actual = SwitchingMatrix.descryptC(encrypted, SwitchingMatrix.transformKey(key_table));
+
+            Assert.AreEqual(result_excepted, result_actual);
+        }
+    }
 }
