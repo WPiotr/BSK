@@ -23,61 +23,129 @@ namespace BSK1
         public MainWindow()
         {
             InitializeComponent();
-            
-            
+
+
         }
 
-        private void Decryption1(object sender, RoutedEventArgs e)
+        private void Encrypt1(object sender, RoutedEventArgs e)
         {
-            if (k.Text == "" || input.Text == "")
+            if (key1.Text == "" || input.Text == "")
             {
                 MessageBox.Show("Wprowadz poprawne dane !");
             }
             else
             {
-                result.Text = Utils.RailFenceDecrypt(int.Parse(k.Text), input.Text);
+                result.Text = Utils.RailFenceEncrypt(int.Parse(key1.Text), input.Text);
             }
         }
 
-        private void Encrypt1(object sender, RoutedEventArgs e)
+        private void Decryption1(object sender, RoutedEventArgs e)
         {
-            if (k.Text == "" || input.Text == "")
+            if (key1.Text == "" || input.Text == "")
             {
                 MessageBox.Show("Wprowadz poprawne dane !");
             }
-            else 
+            else
             {
-                result.Text = Utils.RailFenceEncrypt(int.Parse(k.Text), input.Text);
+                result.Text = Utils.RailFenceDecrypt(int.Parse(key1.Text), input.Text);
             }
         }
 
         private void Encrypt2(object sender, RoutedEventArgs e)
         {
+            if (key2.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+                int[] key = makeKey(key2.Text);
 
+                result.Text = SwitchingMatrix.encrypt(input.Text, key);
+            }
+        }
+        private int[] makeKey(String key)
+        {
+            int[] newKey = new int[key.Length];
+
+            for (int i = 0, globalMin = 0; i < key.Length; i++)
+            {
+                int minIndex = globalMin;
+                for (int j = 0; j < key2.Text.Length; j++)
+                {
+                    if (key[j] < key[globalMin] && key[j] < key[minIndex])
+                    {
+                        minIndex = j;
+                    }
+                }
+                newKey[minIndex] = i;
+            }
+            return newKey;
         }
 
         private void Decryption2(object sender, RoutedEventArgs e)
         {
+            if (key2.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+                int[] key = new int[key2.Text.Length];
+                for (int i = 0; i < key.Length; i++)
+                {
+                    key[i] = key2.Text[i] - 'A';
+                }
+                result.Text = SwitchingMatrix.encrypt(SwitchingMatrix.transformMessage(input.Text, key), SwitchingMatrix.transformKey(key));
+            }
 
         }
 
         private void Encrypt3(object sender, RoutedEventArgs e)
         {
+            if (key1.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+            }
 
         }
 
         private void Decryption3(object sender, RoutedEventArgs e)
         {
+            if (key1.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+            }
 
         }
 
         private void Encrypt4(object sender, RoutedEventArgs e)
         {
+            if (key1.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+            }
 
         }
 
         private void Decryption4(object sender, RoutedEventArgs e)
         {
+            if (key1.Text == "" || input.Text == "")
+            {
+                MessageBox.Show("Wprowadz poprawne dane !");
+            }
+            else
+            {
+            }
 
         }
 

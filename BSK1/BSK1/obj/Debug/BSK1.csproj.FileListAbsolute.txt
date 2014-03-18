@@ -27,3 +27,13 @@ C:\Users\Piotr\Dropbox\Studia\Semestr 6\BSK\Repo\BSK\BSK1\BSK1\obj\Debug\BSK1.pd
 C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\bin\Debug\BSK1.exe.config
 C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.exe
 C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.pdb
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.csprojResolveAssemblyReference.cache
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\MainWindow.baml
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\MainWindow.g.cs
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\App.g.cs
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1_MarkupCompile.cache
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.g.resources
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.Properties.Resources.resources
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\obj\Debug\BSK1.csproj.GenerateResource.Cache
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\bin\Debug\BSK1.exe
+C:\Users\Chrystian\Documents\GitHub\BSK\BSK1\BSK1\bin\Debug\BSK1.pdb

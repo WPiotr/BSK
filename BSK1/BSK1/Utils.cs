@@ -92,7 +92,5 @@ namespace BSK1
 
             return new String(result);
         }
-
-     
     }
 }
