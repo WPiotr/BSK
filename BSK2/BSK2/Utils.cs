@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BSK2
 {
-    public class Utils
+    public partial class Utils
     {
         public static string Encrypt(String inputString, String key) {
             return null;

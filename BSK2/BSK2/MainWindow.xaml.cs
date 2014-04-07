@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,35 @@ namespace BSK2
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void File1(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            if (dlg.ShowDialog() == true)
+            {
+                input.Text = dlg.FileName;
+            }
+        }
+
+        private void File2(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            if (dlg.ShowDialog() == true)
+            {
+                s1.Text = dlg.FileName;
+            }
+            
+        }
+
+        private void File3(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            if (dlg.ShowDialog() == true)
+            {
+                s2.Text = dlg.FileName;
+            }
+            
         }
     }
 }
