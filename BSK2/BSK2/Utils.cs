@@ -100,6 +100,7 @@ namespace BSK2
         public void finalPermutation()
         {
             keys = new BitArray[17];
+            keys[0] = key_plus;
             for (int i = 1; i < 17; i++)
             {
                 keys[i] = new BitArray(48);

@@ -41,19 +41,41 @@ namespace BSK2
             bitMsg = new BitArray(testArray);
         }
 
+        public Message(string message_in_hexa, int hexa)
+        {
+            bitMsg = new BitArray(message_in_hexa.Length * 4);
+            int j = 0;
+            foreach (char c in message_in_hexa)
+            {
+                byte[] byte_msg = BitConverter.GetBytes(c);
+                if (Char.IsDigit(c))
+                {
+                    byte_msg[0] -= (int)'0';
+                }
+                else
+                {
+                    byte_msg[0] -= (int)'A';
+                    byte_msg[0] += 10;
+                }
+                BitArray one_byte = new BitArray(byte_msg);
+                for (int i = 3; i >= 0; i--, j++)
+                {
+                    bitMsg.Set(j, one_byte[i]);
+                }
+            }
+        }
+
         public void initialPermutation()
         {
-            BitArray tmp = new BitArray(bitMsg);
-            for (int i = 0; i < tmp.Length/64; i++)
+            BitArray copy_message = new BitArray(bitMsg);
+            for (int i = 0; i < 64; i++)
             {
-                for (int j = 0; j < ipTable.Length; j++)
-                {
-                    bitMsg.Set(ipTable[j]-1,tmp.Get(j));
-                }
+                bitMsg[i] = copy_message[ipTable[i] - 1];
             }
         }
         public void splitting()
         {
+
         }
         public void reverseConnecting()
         {
