@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BSK2
 {
-    class Iteration
+    public class Iteration
     {
         #region S-Boxy
         public static int[][] sBox1 = {
@@ -125,14 +125,14 @@ namespace BSK2
 
                 byte[] byte_value_form_s_box = BitConverter.GetBytes(value_form_s_box);
 
-                BitArray one_byte = new BitArray(byte_key);
+                BitArray one_byte = new BitArray(byte_value_form_s_box);
                 for (int j = 3; j >= 0; j--, bit_counter++)
                 {
                     bit_value_form_s_box.Set(bit_counter, one_byte[j]);
                 }
                 
             }
-            rightSide = s_box_message;
+            rightSide[iterationIndex] = bit_value_form_s_box;
         }
         public int giveSBoxRow(bool first, bool second)
         {
