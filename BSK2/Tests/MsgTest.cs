@@ -53,6 +53,25 @@
             CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + bitArrayToString(excepted_message) + " Actual\n" + bitArrayToString(test_message.bitMsg));
         }
 
+        [TestMethod]
+        public void splittingMessage()
+        {
+            string message = "0123456789ABCDEF";
+
+            BitArray excepted_left_message;
+            BitArray excepted_right_message;
+            string message_left_side = "11001100 00000000 11001100 11111111";
+            string message_right_side = "11110000 10101010 11110000 10101010";
+
+            excepted_left_message = fromStringToBitArray(message_left_side, 32);
+            excepted_right_message = fromStringToBitArray(message_right_side, 32);
+
+            Message test_message = new Message(message,0);
+            test_message.initialPermutation();
+            test_message.splitting();
+            CollectionAssert.AreEqual(excepted_left_message, test_message.msg_left_side, "Excepted:\n" + bitArrayToString(excepted_left_message) + " Actual\n" + bitArrayToString(test_message.msg_left_side));
+            CollectionAssert.AreEqual(excepted_right_message, test_message.msg_right_side, "Excepted:\n" + bitArrayToString(excepted_right_message) + " Actual\n" + bitArrayToString(test_message.msg_right_side));
+        }
 
 
         private string bitArrayToString(BitArray array)

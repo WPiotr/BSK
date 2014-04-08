@@ -20,6 +20,8 @@ namespace BSK2
                                  61, 53, 45, 37, 29, 21, 13, 5,
                                  63, 55, 47, 39, 31, 23, 15, 7};
         public BitArray bitMsg;
+        public BitArray msg_left_side;
+        public BitArray msg_right_side;
 
         public Message(string pathToFile) {
             string input = File.ReadAllText(pathToFile);
@@ -75,7 +77,16 @@ namespace BSK2
         }
         public void splitting()
         {
-
+            msg_left_side = new BitArray(32);
+            msg_right_side = new BitArray(32);
+            for (int i = 0; i < 32; i++)
+            {
+                msg_left_side[i] = bitMsg[i];
+            }
+            for (int i = 32; i < 64; i++)
+            {
+                msg_right_side[i - 32] = bitMsg[i];
+            }
         }
         public void reverseConnecting()
         {
