@@ -22,14 +22,35 @@ namespace BSK2
         public BitArray bitMsg;
 
         public Message(string pathToFile) {
-            byte[] bytes = File.ReadAllBytes(pathToFile);
-            bitMsg = new BitArray(bytes);
+            string input = File.ReadAllText(pathToFile);
+            bool[] boolArray = new bool[input.Length];
+            for (int i = 0; i < input.Length; i++)
+			{
+			    if(input[i].Equals('1')){
+                    boolArray[i]=true;
+                }    
+                else
+                {
+                    boolArray[i]=false;
+                } 
+			}
+            bitMsg = new BitArray(boolArray);
+        }
+
+        public Message(byte[] testArray){
+            bitMsg = new BitArray(testArray);
         }
 
         public void initialPermutation()
         {
-            
-            
+            BitArray tmp = new BitArray(bitMsg);
+            for (int i = 0; i < tmp.Length/64; i++)
+            {
+                for (int j = 0; j < ipTable.Length; j++)
+                {
+                    bitMsg.Set(ipTable[j]-1,tmp.Get(j));
+                }
+            }
         }
         public void splitting()
         {

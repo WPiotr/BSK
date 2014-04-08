@@ -105,19 +105,4 @@ namespace BSK2
                 }
         }
     }
-    public class Message
-    {
-        public void initialPermutation()
-        {
-        }
-        public void splitting()
-        {
-        }
-        public void reverseConnecting()
-        {
-        }
-        public void finalPermutation()
-        {
-        }
-    }
 }
