@@ -63,11 +63,13 @@ namespace BSK2
             key_plus = new BitArray(56);
             for (int i = 0; i < 56; i++)
             {
-                key_plus[i] = bit_key[PC_1[i]];
+                key_plus[i] = bit_key[PC_1[i]-1];
             }
         }
         public void splitting()
         {
+            key_left_side = new BitArray(28);
+            key_right_side = new BitArray(28);
             for (int i = 0; i < 28; i++)
             {
                 key_left_side[i] = key_plus[i];
@@ -88,8 +90,8 @@ namespace BSK2
                 BitArray temp_c = new BitArray(28);
                 BitArray temp_d = new BitArray(28);
                 for(int j = 0;j<28;j++){
-                    temp_c[(j+shifts_table[i-1])%28]= c_key[i-1][j];
-                    temp_d[(j+shifts_table[i-1])%28]= d_key[i-1][j];
+                    temp_c[j]= c_key[i-1][(j+shifts_table[i-1])%28];
+                    temp_d[j]= d_key[i-1][(j+shifts_table[i-1])%28];
                 }
                 c_key[i] = temp_c;
                 d_key[i] = temp_d;
@@ -98,11 +100,18 @@ namespace BSK2
         public void finalPermutation()
         {
             keys = new BitArray[17];
-            for (int i = 1; i < 17;i++ )
-                for (int j = 0; j < 56; j++)
+            for (int i = 1; i < 17; i++)
+            {
+                keys[i] = new BitArray(48);
+                for (int j = 0; j < 24; j++)
                 {
-                    keys[i][j] = bit_key[PC_2[j]];
+                    keys[i][j] = c_key[i][PC_2[j] - 1];
                 }
+                for (int j = 24; j < 48; j++)
+                {
+                     keys[i][j] = d_key[i][PC_2[j] - 1-28];
+                }
+            }
         }
     }
 }
