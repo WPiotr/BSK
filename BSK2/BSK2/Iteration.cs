@@ -60,23 +60,40 @@ namespace BSK2
 
         #endregion
 
-        public static int[] primitiveFunction = { 16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18, 31, 10, 2, 8, 24, 14, 32, 27, 3, 9, 19, 13, 30, 6, 22, 11, 4, 25};
+        public static int[][][] s_box = null;
 
-        public static int[] eTable = new int[] { 32, 1, 2, 3, 4, 5, 4, 5, 6, 7, 8, 9, 8, 9, 10, 11, 12, 13, 12, 13, 14, 15, 16, 17, 16, 17, 18, 19, 20, 21, 20, 21, 22, 23, 24, 25, 24, 25, 26, 27, 28, 29, 28, 29, 30, 31, 32, 1};
+        public static int[] primitiveFunction = { 16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18, 31, 10, 2, 8, 24, 14, 32, 27, 3, 9, 19, 13, 30, 6, 22, 11, 4, 25 };
+
+        public static int[] eTable = new int[] { 32, 1, 2, 3, 4, 5, 4, 5, 6, 7, 8, 9, 8, 9, 10, 11, 12, 13, 12, 13, 14, 15, 16, 17, 16, 17, 18, 19, 20, 21, 20, 21, 22, 23, 24, 25, 24, 25, 26, 27, 28, 29, 28, 29, 30, 31, 32, 1 };
 
         public BitArray[] leftSide = new BitArray[17];
         public BitArray[] rightSide = new BitArray[17];
         public BitArray[] keys = new BitArray[16];
-        public Iteration(BitArray leftSide, BitArray rightSide){
+        public Iteration(BitArray leftSide, BitArray rightSide)
+        {
             this.leftSide[0] = leftSide;
             this.rightSide[0] = rightSide;
+            if (s_box == null)
+            {
+                s_box = new int[8][][];
+                s_box[0] = sBox1;
+                s_box[1] = sBox2;
+                s_box[2] = sBox3;
+                s_box[3] = sBox4;
+                s_box[4] = sBox5;
+                s_box[5] = sBox6;
+                s_box[6] = sBox7;
+                s_box[7] = sBox8;
+            }
         }
 
-        public void startIteration() {
-        
+        public void startIteration()
+        {
+
         }
 
-        private void ePermutation(int iterationIndex){
+        public void ePermutation(int iterationIndex)
+        {
             BitArray resultArray = new BitArray(48);
             for (int i = 0; i < eTable.Length; i++)
             {
@@ -85,14 +102,73 @@ namespace BSK2
             rightSide[iterationIndex] = resultArray;
         }
 
-        private void xorWithKey(int iterationIndex) {
+        public void xorWithKey(int iterationIndex)
+        {
             BitArray resultArray = new BitArray(rightSide[iterationIndex]);
             resultArray = resultArray.Xor(keys[iterationIndex]);
             rightSide[iterationIndex] = resultArray;
         }
 
-        private void sBoxing(int iterationIndex) {
-            
+        public void sBoxing(int iterationIndex)
+        {
+            BitArray bit_value_form_s_box = new BitArray(32);
+            int row_in_s_box;
+            int column_in_s_box;
+
+            int bit_counter = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                row_in_s_box = giveSBoxRow(rightSide[iterationIndex][i * 6], rightSide[iterationIndex][i * 6 + 5]);
+                column_in_s_box = giveSBoxColumn(rightSide[iterationIndex], i);
+
+                int value_form_s_box = s_box[i][row_in_s_box][column_in_s_box];
+
+                byte[] byte_value_form_s_box = BitConverter.GetBytes(value_form_s_box);
+
+                BitArray one_byte = new BitArray(byte_key);
+                for (int j = 3; j >= 0; j--, bit_counter++)
+                {
+                    bit_value_form_s_box.Set(bit_counter, one_byte[j]);
+                }
+                
+            }
+            rightSide = s_box_message;
+        }
+        public int giveSBoxRow(bool first, bool second)
+        {
+            if (first && second)
+                return 3;
+            else if (first)
+                return 2;
+            else if (second)
+                return 1;
+            else
+                return 0;
+        }
+        public int giveSBoxRow(BitArray array, int part)
+        {
+            if (array[part * 6] && array[part * 6 + 5])
+                return 3;
+            else if (array[part * 6])
+                return 2;
+            else if (array[part * 6 + 5])
+                return 1;
+            else
+                return 0;
+        }
+        public int giveSBoxColumn(BitArray array, int part)
+        {
+            int row = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                if (array[part * 6 + 1 + i])
+                {
+                    row += 1;
+                    row *= 2;
+                }
+            }
+            row /= 2;
+            return row;
         }
 
     }

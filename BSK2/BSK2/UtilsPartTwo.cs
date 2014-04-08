@@ -90,6 +90,7 @@ namespace BSK2
         }
         public void reverseConnecting()
         {
+
         }
         public void finalPermutation()
         {
