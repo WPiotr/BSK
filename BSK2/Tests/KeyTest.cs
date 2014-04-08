@@ -37,6 +37,7 @@ namespace Tests
                 Assert.AreEqual(excepted_key[i], test_key.key_plus[i], "Excepted:\n" + bitArrayToString(excepted_key) + " Actual\n" + bitArrayToString(test_key.bit_key));
             }*/
         }
+
         private string bitArrayToString(BitArray array)
         {
             string bitArray = "";
