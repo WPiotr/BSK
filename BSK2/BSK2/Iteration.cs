@@ -68,11 +68,9 @@ namespace BSK2
 
         public BitArray[] leftSide = new BitArray[17];
         public BitArray[] rightSide = new BitArray[17];
-        public BitArray[] keys = new BitArray[16];
-        public Iteration(BitArray leftSide, BitArray rightSide)
+        public static BitArray[] keys;
+        private Iteration()
         {
-            this.leftSide[0] = leftSide;
-            this.rightSide[0] = rightSide;
             if (s_box == null)
             {
                 s_box = new int[8][][];
@@ -86,17 +84,25 @@ namespace BSK2
                 s_box[7] = sBox8;
             }
         }
+        public Iteration(BitArray leftSide, BitArray rightSide) : this()
+        {
+            this.leftSide[0] = leftSide;
+            this.rightSide[0] = rightSide;
+        }
 
         public void startIteration()
         {
         }
-
+        public static void setKeys(BitArray[] keys)
+        {
+            Iteration.keys = keys;
+        }
         public void ePermutation(int iterationIndex)
         {
             BitArray resultArray = new BitArray(48);
             for (int i = 0; i < eTable.Length; i++)
             {
-                resultArray[i] = rightSide[iterationIndex][eTable[i]];
+                resultArray[i] = rightSide[iterationIndex-1][eTable[i]-1];
             }
             rightSide[iterationIndex] = resultArray;
         }
@@ -133,27 +139,21 @@ namespace BSK2
             }
             rightSide[iterationIndex] = bit_value_form_s_box;
         }
-        public void PPermutation(int iterationIndex)
+        public void pPermutation(int iterationIndex)
         {
-            BitArray resultArray = new BitArray(48);
+            BitArray resultArray = new BitArray(32);
             for (int i = 0; i < primitiveFunction.Length; i++)
             {
-                resultArray[i] = rightSide[iterationIndex - 1][primitiveFunction[i]];
+                resultArray[i] = rightSide[iterationIndex][primitiveFunction[i]-1];
             }
             rightSide[iterationIndex] = resultArray;
         }
         public void afterIteration(int iterationIndex)
         {
-            for (int i = 0; i < 32; i++)
-            {
-                if (leftSide[iterationIndex])
-                {
-                }
-            }
-            leftSide[iterationIndex + 1] = rightSide[iterationIndex];
-            iterationIndex++;
+            rightSide[iterationIndex] = leftSide[iterationIndex - 1].Xor(rightSide[iterationIndex]);
+            leftSide[iterationIndex] = rightSide[iterationIndex-1];
         }
-        public int giveSBoxRow(bool first, bool second)
+        public static int giveSBoxRow(bool first, bool second)
         {
             if (first && second)
                 return 3;
@@ -164,7 +164,7 @@ namespace BSK2
             else
                 return 0;
         }
-        public int giveSBoxRow(BitArray array, int part)
+        public static int giveSBoxRow(BitArray array, int part)
         {
             if (array[part * 6] && array[part * 6 + 5])
                 return 3;
@@ -175,19 +175,19 @@ namespace BSK2
             else
                 return 0;
         }
-        public int giveSBoxColumn(BitArray array, int part)
+        public static int giveSBoxColumn(BitArray array, int part)
         {
-            int row = 0;
+            int column = 0;
             for (int i = 0; i < 4; i++)
             {
                 if (array[part * 6 + 1 + i])
                 {
-                    row += 1;
-                    row *= 2;
+                    column += 1;
                 }
+                column *= 2;
             }
-            row /= 2;
-            return row;
+            column /= 2;
+            return column;
         }
 
     }

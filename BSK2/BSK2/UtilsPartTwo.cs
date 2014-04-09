@@ -45,6 +45,7 @@ namespace BSK2
 
         public Message(string message_in_hexa, int hexa)
         {
+            msg = message_in_hexa;
             bitMsg = new BitArray(message_in_hexa.Length * 4);
             int j = 0;
             foreach (char c in message_in_hexa)
