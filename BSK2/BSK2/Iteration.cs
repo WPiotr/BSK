@@ -89,7 +89,6 @@ namespace BSK2
 
         public void startIteration()
         {
-
         }
 
         public void ePermutation(int iterationIndex)
@@ -97,7 +96,7 @@ namespace BSK2
             BitArray resultArray = new BitArray(48);
             for (int i = 0; i < eTable.Length; i++)
             {
-                resultArray[i] = rightSide[iterationIndex - 1][eTable[i]];
+                resultArray[i] = rightSide[iterationIndex][eTable[i]];
             }
             rightSide[iterationIndex] = resultArray;
         }
@@ -125,14 +124,33 @@ namespace BSK2
 
                 byte[] byte_value_form_s_box = BitConverter.GetBytes(value_form_s_box);
 
-                BitArray one_byte = new BitArray(byte_key);
+                BitArray one_byte = new BitArray(byte_value_form_s_box);
                 for (int j = 3; j >= 0; j--, bit_counter++)
                 {
                     bit_value_form_s_box.Set(bit_counter, one_byte[j]);
                 }
                 
             }
-            rightSide = s_box_message;
+            rightSide[iterationIndex] = bit_value_form_s_box;
+        }
+        public void PPermutation(int iterationIndex)
+        {
+            BitArray resultArray = new BitArray(48);
+            for (int i = 0; i < primitiveFunction.Length; i++)
+            {
+                resultArray[i] = rightSide[iterationIndex - 1][primitiveFunction[i]];
+            }
+            rightSide[iterationIndex] = resultArray;
+        }
+        public void afterIteration(int iterationIndex)
+        {
+            for (int i = 0; i < 32;i++ )
+            {
+                if(leftSide[iterationIndex]){
+                }
+            }
+            leftSide[iterationIndex + 1] = rightSide[iterationIndex];
+            iterationIndex++;
         }
         public int giveSBoxRow(bool first, bool second)
         {
