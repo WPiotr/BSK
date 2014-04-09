@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BSK2
 {
-    class Iteration
+    public class Iteration
     {
         #region S-Boxy
         public static int[][] sBox1 = {
@@ -129,7 +129,7 @@ namespace BSK2
                 {
                     bit_value_form_s_box.Set(bit_counter, one_byte[j]);
                 }
-                
+
             }
             rightSide[iterationIndex] = bit_value_form_s_box;
         }
@@ -144,9 +144,10 @@ namespace BSK2
         }
         public void afterIteration(int iterationIndex)
         {
-            for (int i = 0; i < 32;i++ )
+            for (int i = 0; i < 32; i++)
             {
-                if(leftSide[iterationIndex]){
+                if (leftSide[iterationIndex])
+                {
                 }
             }
             leftSide[iterationIndex + 1] = rightSide[iterationIndex];
