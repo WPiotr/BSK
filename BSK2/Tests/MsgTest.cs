@@ -73,6 +73,78 @@
             CollectionAssert.AreEqual(excepted_right_message, test_message.msg_right_side, "Excepted:\n" + bitArrayToString(excepted_right_message) + " Actual\n" + bitArrayToString(test_message.msg_right_side));
         }
 
+        [TestMethod]
+        public void reverseConnectingMessage()
+        {
+            string message = "0123456789ABCDEF";
+
+            BitArray excepted_message;
+            string excepted_message_string = "00001010 01001100 11011001 10010101 01000011 01000010 00110010 00110100";
+
+            excepted_message = fromStringToBitArray(excepted_message_string);
+
+
+            Key key = new Key("133457799BBCDFF1");
+            key.initialPermutation();
+            key.splitting();
+            key.shifts();
+            key.finalPermutation();
+
+            Message test_message = new Message(message, 0);
+            test_message.initialPermutation();
+            test_message.splitting();
+
+            Iteration.setKeys(key.keys);
+            Iteration iteration = new Iteration(test_message.msg_left_side, test_message.msg_right_side);
+            for (int i = 1; i <= 16; i++)
+            {
+                iteration.ePermutation(i);
+                iteration.xorWithKey(i);
+                iteration.sBoxing(i);
+                iteration.pPermutation(i);
+                iteration.afterIteration(i);
+            }
+            test_message.reverseConnecting(iteration.leftSide[16], iteration.rightSide[16]);
+
+            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + bitArrayToString(excepted_message) + " Actual\n" + bitArrayToString(test_message.bitMsg));
+        }
+
+        [TestMethod]
+        public void finalPermutationMessage()
+        {
+            string message = "0123456789ABCDEF";
+
+            BitArray excepted_message;
+            string excepted_message_string = "10000101 11101000 00010011 01010100 00001111 00001010 10110100 00000101";
+
+            excepted_message = fromStringToBitArray(excepted_message_string);
+
+
+            Key key = new Key("133457799BBCDFF1");
+            key.initialPermutation();
+            key.splitting();
+            key.shifts();
+            key.finalPermutation();
+
+            Message test_message = new Message(message, 0);
+            test_message.initialPermutation();
+            test_message.splitting();
+
+            Iteration.setKeys(key.keys);
+            Iteration iteration = new Iteration(test_message.msg_left_side, test_message.msg_right_side);
+            for (int i = 1; i <= 16; i++)
+            {
+                iteration.ePermutation(i);
+                iteration.xorWithKey(i);
+                iteration.sBoxing(i);
+                iteration.pPermutation(i);
+                iteration.afterIteration(i);
+            }
+            test_message.reverseConnecting(iteration.leftSide[16], iteration.rightSide[16]);
+            test_message.finalPermutation();
+
+            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + bitArrayToString(excepted_message) + " Actual\n" + bitArrayToString(test_message.bitMsg));
+        }
 
         private string bitArrayToString(BitArray array)
         {

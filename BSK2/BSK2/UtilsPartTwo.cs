@@ -11,7 +11,7 @@ namespace BSK2
     public class Message
     {
         private string msg;
-        private int[] ipTable = {58, 50, 42, 34, 26, 18, 10, 2,
+        private static int[] ipTable = {58, 50, 42, 34, 26, 18, 10, 2,
                                  60, 52, 44, 36, 28, 20, 12, 4,
                                  62, 54, 46, 38, 30, 22, 14, 6,
                                  64, 56, 48, 40, 32, 24, 16, 8,
@@ -19,6 +19,7 @@ namespace BSK2
                                  59, 51, 43, 35, 27, 19, 11, 3,
                                  61, 53, 45, 37, 29, 21, 13, 5,
                                  63, 55, 47, 39, 31, 23, 15, 7};
+        private static int[] ipTableReserve = { 40, 8, 48, 16, 56, 24, 64, 32, 39, 7, 47, 15, 55, 23, 63, 31, 38, 6, 46, 14, 54, 22, 62, 30, 37, 5, 45, 13, 53, 21, 61, 29, 36, 4, 44, 12, 52, 20, 60, 28, 35, 3, 43, 11, 51, 19, 59, 27, 34, 2, 42, 10, 50, 18, 58, 26, 33, 1, 41, 9, 49, 17, 57, 25 };
         public BitArray bitMsg;
         public BitArray msg_left_side;
         public BitArray msg_right_side;
@@ -89,12 +90,27 @@ namespace BSK2
                 msg_right_side[i - 32] = bitMsg[i];
             }
         }
-        public void reverseConnecting()
+        public void reverseConnecting(BitArray left_side,BitArray right_side)
         {
-
+            msg_left_side = new BitArray(left_side);
+            msg_right_side = new BitArray(right_side);
+            bitMsg = new BitArray(left_side.Length + right_side.Length);
+            for (int i = 0; i < 32; i++)
+            {
+                bitMsg[i] = msg_right_side[i];
+            }
+            for (int i = 32; i < 64; i++)
+            {
+                bitMsg[i] = msg_left_side[i-32];
+            }
         }
         public void finalPermutation()
         {
+            BitArray copy_message = new BitArray(bitMsg);
+            for (int i = 0; i < 64; i++)
+            {
+                bitMsg[i] = copy_message[ipTableReserve[i] - 1];
+            }
         }
 
 

@@ -9,20 +9,97 @@ namespace BSK2
 {
     public partial class Utils
     {
+        private static Key key;
+
         public static string Encrypt(String inputString, String key)
         {
-            return null;
+            if (Utils.key == null && Utils.key.key.CompareTo(key) == 0)
+            {
+                makeKey(key);
+            }
+            BitArray encrypted_message = makeMessage(inputString);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < encrypted_message.Length / 4; i++)
+            {
+                Decimal decimalValue = 0;
+                for (int j = 0; j < 4; j++)
+                {
+                    if (encrypted_message[i * 4 + j])
+                    {
+                        decimalValue += 1;
+                    }
+                    decimalValue *= 2;
+                }
+                decimalValue /= 2;
+                sb.Append(decimalValue.ToString("X"));
+            }
+
+            //foreach (Boolean bit in encrypted_message)
+            //{
+            //    if (bit)
+            //        sb.Append(String.Format("%01x", 0x01));
+            //    else
+            //        sb.Append(String.Format("%01x", 0x01));
+            //}
+            return sb.ToString();
         }
         public static string Decrypt(String inputString, String key)
         {
             return null;
         }
+        private static void makeKey(string key)
+        {
+            Utils.key = new Key(key);
+            Utils.key.initialPermutation();
+            Utils.key.splitting();
+            Utils.key.shifts();
+            Utils.key.finalPermutation();
+        }
+        private static BitArray makeMessage(string message_hexa)
+        {
+            Message message = new Message(message_hexa, 0);
+            message.initialPermutation();
+            message.splitting();
+
+            Iteration iteration = new Iteration(message.msg_left_side, message.msg_right_side);
+            Iteration.setKeys(key.keys);
+            for (int i = 1; i <= 16; i++)
+            {
+                Utils.oneIteration(iteration, i);
+            }
+            message.reverseConnecting(iteration.leftSide[16], iteration.rightSide[16]);
+            message.finalPermutation();
+            return message.bitMsg;
+        }
+        private static void oneIteration(Iteration iteration, int counter)
+        {
+            iteration.ePermutation(counter);
+            iteration.xorWithKey(counter);
+            iteration.sBoxing(counter);
+            iteration.pPermutation(counter);
+            iteration.afterIteration(counter);
+        }
+        private string bitArrayToString(BitArray array)
+        {
+            string bitArray = "";
+            for (int i = 0; i < array.Length; i++)
+            {
+                bool bit = array.Get(i);
+                bitArray += (bit ? '1' : '0');
+                if (i % 8 == 7 && i != 0)
+                {
+                    bitArray += ' ';
+                }
+            }
+            return bitArray;
+        }
     }
     public class Key
     {
-        string key;
-        int[] PC_1 = { 57, 49, 41, 33, 25, 17, 9, 1, 58, 50, 42, 34, 26, 18, 10, 2, 59, 51, 43, 35, 27, 19, 11, 3, 60, 52, 44, 36, 63, 55, 47, 39, 31, 23, 15, 7, 62, 54, 46, 38, 30, 22, 14, 6, 61, 53, 45, 37, 29, 21, 13, 5, 28, 20, 12, 4 };
-        int[] PC_2 = { 14, 17, 11, 24, 1, 5, 3, 28, 15, 6, 21, 10, 23, 19, 12, 4, 26, 8, 16, 7, 27, 20, 13, 2, 41, 52, 31, 37, 47, 55, 30, 40, 51, 45, 33, 48, 44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32 };
+        public string key;
+        private static int[] PC_1 = { 57, 49, 41, 33, 25, 17, 9, 1, 58, 50, 42, 34, 26, 18, 10, 2, 59, 51, 43, 35, 27, 19, 11, 3, 60, 52, 44, 36, 63, 55, 47, 39, 31, 23, 15, 7, 62, 54, 46, 38, 30, 22, 14, 6, 61, 53, 45, 37, 29, 21, 13, 5, 28, 20, 12, 4 };
+        private static int[] PC_2 = { 14, 17, 11, 24, 1, 5, 3, 28, 15, 6, 21, 10, 23, 19, 12, 4, 26, 8, 16, 7, 27, 20, 13, 2, 41, 52, 31, 37, 47, 55, 30, 40, 51, 45, 33, 48, 44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32 };
         int[] shifts_table = { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };
         public BitArray bit_key;
         public BitArray key_plus;
@@ -63,7 +140,7 @@ namespace BSK2
             key_plus = new BitArray(56);
             for (int i = 0; i < 56; i++)
             {
-                key_plus[i] = bit_key[PC_1[i]-1];
+                key_plus[i] = bit_key[PC_1[i] - 1];
             }
         }
         public void splitting()
@@ -84,14 +161,15 @@ namespace BSK2
             c_key = new BitArray[17];
             d_key = new BitArray[17];
             c_key[0] = key_left_side;
-            d_key[0]= key_right_side;
+            d_key[0] = key_right_side;
             for (int i = 1; i < 17; i++)
             {
                 BitArray temp_c = new BitArray(28);
                 BitArray temp_d = new BitArray(28);
-                for(int j = 0;j<28;j++){
-                    temp_c[j]= c_key[i-1][(j+shifts_table[i-1])%28];
-                    temp_d[j]= d_key[i-1][(j+shifts_table[i-1])%28];
+                for (int j = 0; j < 28; j++)
+                {
+                    temp_c[j] = c_key[i - 1][(j + shifts_table[i - 1]) % 28];
+                    temp_d[j] = d_key[i - 1][(j + shifts_table[i - 1]) % 28];
                 }
                 c_key[i] = temp_c;
                 d_key[i] = temp_d;
@@ -110,7 +188,7 @@ namespace BSK2
                 }
                 for (int j = 24; j < 48; j++)
                 {
-                     keys[i][j] = d_key[i][PC_2[j] - 1-28];
+                    keys[i][j] = d_key[i][PC_2[j] - 1 - 28];
                 }
             }
         }

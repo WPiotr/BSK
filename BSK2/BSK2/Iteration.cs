@@ -150,7 +150,8 @@ namespace BSK2
         }
         public void afterIteration(int iterationIndex)
         {
-            rightSide[iterationIndex] = leftSide[iterationIndex - 1].Xor(rightSide[iterationIndex]);
+            BitArray left_side_copy = new BitArray(leftSide[iterationIndex - 1]);
+            rightSide[iterationIndex] = left_side_copy.Xor(rightSide[iterationIndex]);
             leftSide[iterationIndex] = rightSide[iterationIndex-1];
         }
         public static int giveSBoxRow(bool first, bool second)
