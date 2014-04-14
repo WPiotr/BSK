@@ -11,10 +11,10 @@ namespace BSK2
     {
         #region S-Boxy
         public static int[][] sBox1 = {
-                new int[] {14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7},
-                new int[] {0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8},
-                new int[] {4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0}, 
-                new int[] {15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13}};
+                new int[]{ 14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7 }, 
+                new int[]{ 0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8 },
+                new int[]{ 4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0 }, 
+                new int[]{ 15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13 }};
 
         public static int[][] sBox2 = {
                 new int[] {15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10},
@@ -84,7 +84,8 @@ namespace BSK2
                 s_box[7] = sBox8;
             }
         }
-        public Iteration(BitArray leftSide, BitArray rightSide) : this()
+        public Iteration(BitArray leftSide, BitArray rightSide)
+            : this()
         {
             this.leftSide[0] = leftSide;
             this.rightSide[0] = rightSide;
@@ -102,7 +103,7 @@ namespace BSK2
             BitArray resultArray = new BitArray(48);
             for (int i = 0; i < eTable.Length; i++)
             {
-                resultArray[i] = rightSide[iterationIndex-1][eTable[i]-1];
+                resultArray[i] = rightSide[iterationIndex - 1][eTable[i] - 1];
             }
             rightSide[iterationIndex] = resultArray;
         }
@@ -144,7 +145,7 @@ namespace BSK2
             BitArray resultArray = new BitArray(32);
             for (int i = 0; i < primitiveFunction.Length; i++)
             {
-                resultArray[i] = rightSide[iterationIndex][primitiveFunction[i]-1];
+                resultArray[i] = rightSide[iterationIndex][primitiveFunction[i] - 1];
             }
             rightSide[iterationIndex] = resultArray;
         }
@@ -152,7 +153,7 @@ namespace BSK2
         {
             BitArray left_side_copy = new BitArray(leftSide[iterationIndex - 1]);
             rightSide[iterationIndex] = left_side_copy.Xor(rightSide[iterationIndex]);
-            leftSide[iterationIndex] = rightSide[iterationIndex-1];
+            leftSide[iterationIndex] = rightSide[iterationIndex - 1];
         }
         public static int giveSBoxRow(bool first, bool second)
         {

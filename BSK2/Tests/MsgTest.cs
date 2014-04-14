@@ -32,11 +32,11 @@
 
             BitArray excepted_message;
             string given_message_table = "00000001 00100011 01000101 01100111 10001001 10101011 11001101 11101111";
-            //message
-            excepted_message = fromStringToBitArray(given_message_table, 64);
-            Message test_message  = new Message(message,0);
+            // message
+            excepted_message = this.fromStringToBitArray(given_message_table, 64);
+            Message test_message = new Message(message, 0);
 
-            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + bitArrayToString(excepted_message) + " Actual\n" + bitArrayToString(test_message.bitMsg));
+            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + this.bitArrayToString(excepted_message) + " Actual\n" + this.bitArrayToString(test_message.bitMsg));
 
         }
         [TestMethod]
@@ -46,11 +46,11 @@
 
             BitArray excepted_message;
             string given_message_table = "11001100 00000000 11001100 11111111 11110000 10101010 11110000 10101010";
-            excepted_message = fromStringToBitArray(given_message_table, 64);
+            excepted_message = this.fromStringToBitArray(given_message_table, 64);
 
             Message test_message = new Message(message, 0);
             test_message.initialPermutation();
-            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + bitArrayToString(excepted_message) + " Actual\n" + bitArrayToString(test_message.bitMsg));
+            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + this.bitArrayToString(excepted_message) + " Actual\n" + this.bitArrayToString(test_message.bitMsg));
         }
 
         [TestMethod]
@@ -63,14 +63,14 @@
             string message_left_side = "11001100 00000000 11001100 11111111";
             string message_right_side = "11110000 10101010 11110000 10101010";
 
-            excepted_left_message = fromStringToBitArray(message_left_side, 32);
-            excepted_right_message = fromStringToBitArray(message_right_side, 32);
+            excepted_left_message = this.fromStringToBitArray(message_left_side, 32);
+            excepted_right_message = this.fromStringToBitArray(message_right_side, 32);
 
-            Message test_message = new Message(message,0);
+            Message test_message = new Message(message, 0);
             test_message.initialPermutation();
             test_message.splitting();
-            CollectionAssert.AreEqual(excepted_left_message, test_message.msg_left_side, "Excepted:\n" + bitArrayToString(excepted_left_message) + " Actual\n" + bitArrayToString(test_message.msg_left_side));
-            CollectionAssert.AreEqual(excepted_right_message, test_message.msg_right_side, "Excepted:\n" + bitArrayToString(excepted_right_message) + " Actual\n" + bitArrayToString(test_message.msg_right_side));
+            CollectionAssert.AreEqual(excepted_left_message, test_message.msg_left_side, "Excepted:\n" + this.bitArrayToString(excepted_left_message) + " Actual\n" + this.bitArrayToString(test_message.msg_left_side));
+            CollectionAssert.AreEqual(excepted_right_message, test_message.msg_right_side, "Excepted:\n" + this.bitArrayToString(excepted_right_message) + " Actual\n" + this.bitArrayToString(test_message.msg_right_side));
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@
             BitArray excepted_message;
             string excepted_message_string = "00001010 01001100 11011001 10010101 01000011 01000010 00110010 00110100";
 
-            excepted_message = fromStringToBitArray(excepted_message_string);
+            excepted_message = this.fromStringToBitArray(excepted_message_string);
 
 
             Key key = new Key("133457799BBCDFF1");
@@ -106,7 +106,7 @@
             }
             test_message.reverseConnecting(iteration.leftSide[16], iteration.rightSide[16]);
 
-            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + bitArrayToString(excepted_message) + " Actual\n" + bitArrayToString(test_message.bitMsg));
+            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + this.bitArrayToString(excepted_message) + " Actual\n" + this.bitArrayToString(test_message.bitMsg));
         }
 
         [TestMethod]
@@ -117,7 +117,7 @@
             BitArray excepted_message;
             string excepted_message_string = "10000101 11101000 00010011 01010100 00001111 00001010 10110100 00000101";
 
-            excepted_message = fromStringToBitArray(excepted_message_string);
+            excepted_message = this.fromStringToBitArray(excepted_message_string);
 
 
             Key key = new Key("133457799BBCDFF1");
@@ -143,7 +143,7 @@
             test_message.reverseConnecting(iteration.leftSide[16], iteration.rightSide[16]);
             test_message.finalPermutation();
 
-            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + bitArrayToString(excepted_message) + " Actual\n" + bitArrayToString(test_message.bitMsg));
+            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + this.bitArrayToString(excepted_message) + " Actual\n" + this.bitArrayToString(test_message.bitMsg));
         }
 
         private string bitArrayToString(BitArray array)
@@ -183,7 +183,7 @@
             {
                 if (key[i] == '1' || key[i] == '0') length++;
             }
-            return fromStringToBitArray(key, length);
+            return this.fromStringToBitArray(key, length);
         }
     }
 }

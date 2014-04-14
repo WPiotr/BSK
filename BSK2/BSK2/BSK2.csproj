@@ -53,9 +53,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Iteration.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="UtilsPartTwo.cs" />
+    <Compile Include="Iteration.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Key.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="Utils.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

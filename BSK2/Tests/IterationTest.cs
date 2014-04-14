@@ -7,45 +7,45 @@ using System.Diagnostics;
 namespace Tests
 {
 
-    //Given message (in hex):
+    // Given message (in hex):
     //  0123456789ABCDEF
 
-//Given message M:
+    // Given message M:
     //  00000001 00100011 01000101 01100111 10001001 10101011 11001101 11101111
-    //IP:
+    // IP:
     //  11001100 00000000 11001100 11111111 11110000 10101010 11110000 10101010
-    //L0:
+    // L0:
     //  11001100 00000000 11001100 11111111
-    //R0:
+    // R0:
     //  11110000 10101010 11110000 10101010
-// e permutation method
-    //E(R0):
+    // e permutation method
+    // E(R0):
     //  011110 100001 010101 010101 011110 100001 010101 010101
-// xor method   
-    //K1 XOR E(R0):
+    // xor method   
+    // K1 XOR E(R0):
     //  011000 010001 011110 111010 100001 100110 010100 100111
-// s box method
-    //S(B1)S(B2)S(B3)S(B4)S(B5)S(B6)S(B7)S(B8):
+    // s box method
+    // S(B1)S(B2)S(B3)S(B4)S(B5)S(B6)S(B7)S(B8):
     //  0101 1100 1000 0010 1011 0101 1001 0111
-// p permutation method
-    //f = P[S(B1)S(B2)S(B3)S(B4)S(B5)S(B6)S(B7)S(B8)]:
+    // p permutation method
+    // f = P[S(B1)S(B2)S(B3)S(B4)S(B5)S(B6)S(B7)S(B8)]:
     //  0010 0011 0100 1010 1010 1001 1011 1011
-// afterIteration method
-    //R1 = L0 XOR f(R0,K1):
+    // afterIteration method
+    // R1 = L0 XOR f(R0,K1):
     //  1110 1111 0100 1010 0110 0101 0100 0100
-    //L1 = R0:
+    // L1 = R0:
     //  1111 0000 1010 1010 1111 0000 1010 1010
-    //L1:
+    // L1:
     //  1111 0000 1010 1010 1111 0000 1010 1010
-    //R1:
+    // R1:
     //  1110 1111 0100 1010 0110 0101 0100 0100
-    //L16:
+    // L16:
     //  0100 0011 0100 0010 0011 0010 0011 0100
-    //R16:
+    // R16:
     //  0000 1010 0100 1100 1101 1001 1001 0101
-// giveSBoxRow
+    // giveSBoxRow
     // 0 1 0 2 3 2 0 3
-// giveSBoxColumn
+    // giveSBoxColumn
     // 12 8 15 13 0 3 10 3
     [TestClass]
     public class IterationTest
@@ -62,11 +62,11 @@ namespace Tests
             get { return context; }
             set { context = value; }
         }
-        
+
         private static BitArray[] keys;
-        
+
         Iteration iteration_test;
-        
+
         [ClassInitialize()]
         public static void iterationClassInitialize(TestContext context)
         {
@@ -84,63 +84,63 @@ namespace Tests
         [TestInitialize()]
         public void iterationTestInitialize()
         {
-            iteration_test = new Iteration(left_side_test, right_side_test);
+            this.iteration_test = new Iteration(left_side_test, right_side_test);
 
-            Debug.WriteLine("Name: "+context.TestName);
+            Debug.WriteLine("Name: " + context.TestName);
         }
         // e permutation method
-        //E(R0):
+        // E(R0):
         //  011110 100001 010101 010101 011110 100001 010101 010101
-       
+
         [TestMethod]
         public void ePermutationTest()
         {
             string exceptedResultString = "011110 100001 010101 010101 011110 100001 010101 010101";
             BitArray expectedResult = fromStringToBitArray(exceptedResultString, 48);
 
-            iteration_test.ePermutation(1);
+            this.iteration_test.ePermutation(1);
 
-            CollectionAssert.AreEqual(expectedResult, iteration_test.rightSide[1], "Excepted:\n" + 
-                bitArrayToString(expectedResult) + " Actual\n" + bitArrayToString(iteration_test.rightSide[1]));
+            CollectionAssert.AreEqual(expectedResult, this.iteration_test.rightSide[1], "Excepted:\n" +
+                bitArrayToString(expectedResult) + " Actual\n" + bitArrayToString(this.iteration_test.rightSide[1]));
 
         }
         // xor method   
-        //K1 XOR E(R0):
+        // K1 XOR E(R0):
         //  011000 010001 011110 111010 100001 100110 010100 100111
-       
+
         [TestMethod]
         public void xorWithKeyTest()
         {
             string exceptedResultString = "011000 010001 011110 111010 100001 100110 010100 100111";
             BitArray expectedResult = fromStringToBitArray(exceptedResultString);
 
-            iteration_test.ePermutation(1);
-            iteration_test.xorWithKey(1);
+            this.iteration_test.ePermutation(1);
+            this.iteration_test.xorWithKey(1);
 
-            CollectionAssert.AreEqual(expectedResult, iteration_test.rightSide[1], "Excepted:\n" + 
-                bitArrayToString(expectedResult) + " Actual\n" + bitArrayToString(iteration_test.rightSide[1]));
+            CollectionAssert.AreEqual(expectedResult, this.iteration_test.rightSide[1], "Excepted:\n" +
+                bitArrayToString(expectedResult) + " Actual\n" + bitArrayToString(this.iteration_test.rightSide[1]));
 
         }
         // s box method
-        //S(B1)S(B2)S(B3)S(B4)S(B5)S(B6)S(B7)S(B8):
+        // S(B1)S(B2)S(B3)S(B4)S(B5)S(B6)S(B7)S(B8):
         //  0101 1100 1000 0010 1011 0101 1001 0111
-       
+
         [TestMethod]
         public void sBoxingTest()
         {
             string exceptedResultString = "0101 1100 1000 0010 1011 0101 1001 0111";
             BitArray expectedResult = fromStringToBitArray(exceptedResultString);
 
-            iteration_test.ePermutation(1);
-            iteration_test.xorWithKey(1);
-            iteration_test.sBoxing(1);
+            this.iteration_test.ePermutation(1);
+            this.iteration_test.xorWithKey(1);
+            this.iteration_test.sBoxing(1);
 
-            CollectionAssert.AreEqual(expectedResult, iteration_test.rightSide[1], "Excepted:\n" + 
-                bitArrayToString(expectedResult) + " Actual\n" + bitArrayToString(iteration_test.rightSide[1]));
+            CollectionAssert.AreEqual(expectedResult, this.iteration_test.rightSide[1], "Excepted:\n" +
+                bitArrayToString(expectedResult) + " Actual\n" + bitArrayToString(this.iteration_test.rightSide[1]));
 
         }
         // p permutation method
-        //f = P[S(B1)S(B2)S(B3)S(B4)S(B5)S(B6)S(B7)S(B8)]:
+        // f = P[S(B1)S(B2)S(B3)S(B4)S(B5)S(B6)S(B7)S(B8)]:
         //  0010 0011 0100 1010 1010 1001 1011 1011
         [TestMethod]
         public void pPermutationTest()
@@ -148,23 +148,23 @@ namespace Tests
             string exceptedResultString = "0010 0011 0100 1010 1010 1001 1011 1011";
             BitArray expectedResult = fromStringToBitArray(exceptedResultString);
 
-            iteration_test.ePermutation(1);
-            iteration_test.xorWithKey(1);
-            iteration_test.sBoxing(1);
-            iteration_test.pPermutation(1);
+            this.iteration_test.ePermutation(1);
+            this.iteration_test.xorWithKey(1);
+            this.iteration_test.sBoxing(1);
+            this.iteration_test.pPermutation(1);
 
-            CollectionAssert.AreEqual(expectedResult, iteration_test.rightSide[1], "Excepted:\n" + 
-                bitArrayToString(expectedResult) + " Actual\n" + bitArrayToString(iteration_test.rightSide[1]));
+            CollectionAssert.AreEqual(expectedResult, this.iteration_test.rightSide[1], "Excepted:\n" +
+                bitArrayToString(expectedResult) + " Actual\n" + bitArrayToString(this.iteration_test.rightSide[1]));
 
         }
         // afterIteration method
-        //R1 = L0 XOR f(R0,K1):
+        // R1 = L0 XOR f(R0,K1):
         //  1110 1111 0100 1010 0110 0101 0100 0100
-        //L1 = R0:
+        // L1 = R0:
         //  1111 0000 1010 1010 1111 0000 1010 1010
-        //L1:
+        // L1:
         //  1111 0000 1010 1010 1111 0000 1010 1010
-        //R1:
+        // R1:
         //  1110 1111 0100 1010 0110 0101 0100 0100
         [TestMethod]
         public void afterIterationTest()
@@ -175,20 +175,20 @@ namespace Tests
             BitArray expected_left_side = fromStringToBitArray(excepted_left_side_string);
             BitArray expected_right_side = fromStringToBitArray(excepted_right_side_string);
 
-            iteration_test.ePermutation(1);
-            iteration_test.xorWithKey(1);
-            iteration_test.sBoxing(1);
-            iteration_test.pPermutation(1);
-            iteration_test.afterIteration(1);
+            this.iteration_test.ePermutation(1);
+            this.iteration_test.xorWithKey(1);
+            this.iteration_test.sBoxing(1);
+            this.iteration_test.pPermutation(1);
+            this.iteration_test.afterIteration(1);
 
-            CollectionAssert.AreEqual(expected_left_side, iteration_test.leftSide[1], "Excepted:\n" + 
-                bitArrayToString(expected_left_side) + " Actual\n" + bitArrayToString(iteration_test.leftSide[1]));
-            CollectionAssert.AreEqual(expected_right_side, iteration_test.rightSide[1], "Excepted:\n" + 
-                bitArrayToString(expected_right_side) + " Actual\n" + bitArrayToString(iteration_test.rightSide[1]));
+            CollectionAssert.AreEqual(expected_left_side, this.iteration_test.leftSide[1], "Excepted:\n" +
+                bitArrayToString(expected_left_side) + " Actual\n" + bitArrayToString(this.iteration_test.leftSide[1]));
+            CollectionAssert.AreEqual(expected_right_side, this.iteration_test.rightSide[1], "Excepted:\n" +
+                bitArrayToString(expected_right_side) + " Actual\n" + bitArrayToString(this.iteration_test.rightSide[1]));
         }
-        //L16:
+        // L16:
         //  0100 0011 0100 0010 0011 0010 0011 0100
-        //R16:
+        // R16:
         //  0000 1010 0100 1100 1101 1001 1001 0101
 
         [TestMethod]
@@ -199,19 +199,19 @@ namespace Tests
 
             BitArray expected_left_side = fromStringToBitArray(excepted_left_side_string);
             BitArray expected_right_side = fromStringToBitArray(excepted_right_side_string);
-            for (int i = 1; i <= 16;i++ )
+            for (int i = 1; i <= 16; i++)
             {
-                iteration_test.ePermutation(i);
-                iteration_test.xorWithKey(i);
-                iteration_test.sBoxing(i);
-                iteration_test.pPermutation(i);
-                iteration_test.afterIteration(i);
+                this.iteration_test.ePermutation(i);
+                this.iteration_test.xorWithKey(i);
+                this.iteration_test.sBoxing(i);
+                this.iteration_test.pPermutation(i);
+                this.iteration_test.afterIteration(i);
             }
-            
-            CollectionAssert.AreEqual(expected_left_side, iteration_test.leftSide[16], "Excepted:\n" +
-                bitArrayToString(expected_left_side) + " Actual\n" + bitArrayToString(iteration_test.leftSide[16]));
-            CollectionAssert.AreEqual(expected_right_side, iteration_test.rightSide[16], "Excepted:\n" +
-                bitArrayToString(expected_right_side) + " Actual\n" + bitArrayToString(iteration_test.rightSide[16]));
+
+            CollectionAssert.AreEqual(expected_left_side, this.iteration_test.leftSide[16], "Excepted:\n" +
+                bitArrayToString(expected_left_side) + " Actual\n" + bitArrayToString(this.iteration_test.leftSide[16]));
+            CollectionAssert.AreEqual(expected_right_side, this.iteration_test.rightSide[16], "Excepted:\n" +
+                bitArrayToString(expected_right_side) + " Actual\n" + bitArrayToString(this.iteration_test.rightSide[16]));
         }
 
         // giveSBoxRow
@@ -219,19 +219,19 @@ namespace Tests
         [TestMethod]
         public void sBoxrRowsTest()
         {
-            int[] except_rows = {0,1,0,2,3,2,0,3};
+            int[] except_rows = { 0, 1, 0, 2, 3, 2, 0, 3 };
 
-            iteration_test.ePermutation(1);
-            iteration_test.xorWithKey(1);
+            this.iteration_test.ePermutation(1);
+            this.iteration_test.xorWithKey(1);
 
             int[] rows_in_s_box_test = new int[except_rows.Length];
-            
+
             for (int i = 0; i < 8; i++)
             {
-                rows_in_s_box_test[i] = Iteration.giveSBoxRow(iteration_test.rightSide[1][i * 6], 
-                    iteration_test.rightSide[1][i * 6 + 5]);
+                rows_in_s_box_test[i] = Iteration.giveSBoxRow(this.iteration_test.rightSide[1][i * 6],
+                    this.iteration_test.rightSide[1][i * 6 + 5]);
             }
-            CollectionAssert.AreEqual(except_rows, rows_in_s_box_test, "Excepted:\n" + except_rows.ToString() + " Actual\n" + 
+            CollectionAssert.AreEqual(except_rows, rows_in_s_box_test, "Excepted:\n" + except_rows.ToString() + " Actual\n" +
                 rows_in_s_box_test.ToString());
         }
         // giveSBoxColumn
@@ -241,14 +241,14 @@ namespace Tests
         {
             int[] except_columns = { 12, 8, 15, 13, 0, 3, 10, 3 };
 
-            iteration_test.ePermutation(1);
-            iteration_test.xorWithKey(1);
+            this.iteration_test.ePermutation(1);
+            this.iteration_test.xorWithKey(1);
 
             int[] columns_in_s_box_test = new int[except_columns.Length];
 
             for (int i = 0; i < 8; i++)
             {
-                columns_in_s_box_test[i] = Iteration.giveSBoxColumn(iteration_test.rightSide[1], i);
+                columns_in_s_box_test[i] = Iteration.giveSBoxColumn(this.iteration_test.rightSide[1], i);
             }
             CollectionAssert.AreEqual(except_columns, columns_in_s_box_test, "Excepted:\n" + except_columns.ToString() + " Actual\n" +
                 columns_in_s_box_test.ToString());
@@ -256,7 +256,7 @@ namespace Tests
         private static void makeKey()
         {
             string[] key_string = new string[17];
-            
+
             key_string[1] = " 000110 110000 001011 101111 111111 000111 000001 110010";
             key_string[2] = " 011110 011010 111011 011001 110110 111100 100111 100101";
             key_string[3] = " 010101 011111 110010 001010 010000 101100 111110 011001";

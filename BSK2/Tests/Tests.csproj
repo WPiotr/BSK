@@ -50,10 +50,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="KeyTest.cs" />
-    <Compile Include="MsgTest.cs" />
+    <Compile Include="KeyTest.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="MsgTest.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IterationTest.cs" />
+    <Compile Include="IterationTest.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSK2\BSK2.csproj">

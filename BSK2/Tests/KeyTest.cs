@@ -28,7 +28,7 @@ namespace Tests
             }
             Key test_key = new Key(key);
 
-            CollectionAssert.AreEqual(excepted_key, test_key.bit_key, "Excepted:\n" + bitArrayToString(excepted_key) + " Actual\n" + bitArrayToString(test_key.bit_key));
+            CollectionAssert.AreEqual(excepted_key, test_key.bit_key, "Excepted:\n" + this.bitArrayToString(excepted_key) + " Actual\n" + this.bitArrayToString(test_key.bit_key));
         }
         [TestMethod]
         public void initialPermutationKey()
@@ -50,7 +50,7 @@ namespace Tests
             }
             Key test_key = new Key(key);
             test_key.initialPermutation();
-            CollectionAssert.AreEqual(excepted_key, test_key.key_plus, "Excepted:\n" + bitArrayToString(excepted_key) + " Actual\n" + bitArrayToString(test_key.bit_key));
+            CollectionAssert.AreEqual(excepted_key, test_key.key_plus, "Excepted:\n" + this.bitArrayToString(excepted_key) + " Actual\n" + this.bitArrayToString(test_key.bit_key));
         }
         [TestMethod]
         public void splittingKey()
@@ -61,14 +61,14 @@ namespace Tests
             BitArray excepted_right_key;
             string key_left_side = "1111000 0110011 0010101 0101111";
             string key_right_side = "0101010 1011001 1001111 0001111";
-            excepted_left_key = fromStringToBitArray(key_left_side, 28);
-            excepted_right_key = fromStringToBitArray(key_right_side, 28);
+            excepted_left_key = this.fromStringToBitArray(key_left_side, 28);
+            excepted_right_key = this.fromStringToBitArray(key_right_side, 28);
 
             Key test_key = new Key(key);
             test_key.initialPermutation();
             test_key.splitting();
-            CollectionAssert.AreEqual(excepted_left_key, test_key.key_left_side, "Excepted:\n" + bitArrayToString(excepted_left_key) + " Actual\n" + bitArrayToString(test_key.key_left_side));
-            CollectionAssert.AreEqual(excepted_right_key, test_key.key_right_side, "Excepted:\n" + bitArrayToString(excepted_right_key) + " Actual\n" + bitArrayToString(test_key.key_right_side));
+            CollectionAssert.AreEqual(excepted_left_key, test_key.key_left_side, "Excepted:\n" + this.bitArrayToString(excepted_left_key) + " Actual\n" + this.bitArrayToString(test_key.key_left_side));
+            CollectionAssert.AreEqual(excepted_right_key, test_key.key_right_side, "Excepted:\n" + this.bitArrayToString(excepted_right_key) + " Actual\n" + this.bitArrayToString(test_key.key_right_side));
         }
         [TestMethod]
         public void shiftsKey()
@@ -100,8 +100,8 @@ namespace Tests
 
             for (int i = 0; i < 17; i++)
             {
-                excepted_c_keys[i] = fromStringToBitArray(c_string[i], 28);
-                excepted_d_keys[i] = fromStringToBitArray(d_string[i], 28);
+                excepted_c_keys[i] = this.fromStringToBitArray(c_string[i], 28);
+                excepted_d_keys[i] = this.fromStringToBitArray(d_string[i], 28);
             }
             Key test_key = new Key(key);
             test_key.initialPermutation();
@@ -109,8 +109,8 @@ namespace Tests
             test_key.shifts();
             for (int i = 0; i < 17; i++)
             {
-                CollectionAssert.AreEqual(excepted_c_keys[i], test_key.c_key[i], "Excepted:\n" + bitArrayToString(excepted_c_keys[i]) + " Actual\n" + bitArrayToString(test_key.c_key[i]));
-                CollectionAssert.AreEqual(excepted_d_keys[i], test_key.d_key[i], "Excepted:\n" + bitArrayToString(excepted_d_keys[i]) + " Actual\n" + bitArrayToString(test_key.d_key[i]));
+                CollectionAssert.AreEqual(excepted_c_keys[i], test_key.c_key[i], "Excepted:\n" + this.bitArrayToString(excepted_c_keys[i]) + " Actual\n" + this.bitArrayToString(test_key.c_key[i]));
+                CollectionAssert.AreEqual(excepted_d_keys[i], test_key.d_key[i], "Excepted:\n" + this.bitArrayToString(excepted_d_keys[i]) + " Actual\n" + this.bitArrayToString(test_key.d_key[i]));
 
             }
         }
@@ -142,7 +142,7 @@ namespace Tests
 
             for (int i = 1; i < 17; i++)
             {
-                excepted_keys[i] = fromStringToBitArray(key_string[i], 48);
+                excepted_keys[i] = this.fromStringToBitArray(key_string[i], 48);
             }
             Key test_key = new Key(key);
             test_key.initialPermutation();
@@ -151,7 +151,7 @@ namespace Tests
             test_key.finalPermutation();
             for (int i = 1; i < 17; i++)
             {
-                CollectionAssert.AreEqual(excepted_keys[i], test_key.keys[i], "Excepted:\n" + bitArrayToString(excepted_keys[i]) + " Actual\n" + bitArrayToString(test_key.keys[i]));
+                CollectionAssert.AreEqual(excepted_keys[i], test_key.keys[i], "Excepted:\n" + this.bitArrayToString(excepted_keys[i]) + " Actual\n" + this.bitArrayToString(test_key.keys[i]));
             }
         }
         private string bitArrayToString(BitArray array)
@@ -191,7 +191,7 @@ namespace Tests
             {
                 if (key[i] == '1' || key[i] == '0') length++;
             }
-            return fromStringToBitArray(key, length);
+            return this.fromStringToBitArray(key, length);
         }
     }
 }
