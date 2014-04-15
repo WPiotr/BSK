@@ -14,7 +14,7 @@ namespace Tests
             string key = "133457799BBCDFF1";
             string message = "0123456789ABCDEF";
 
-            Utils.makeKey(key);
+            //Utils.makeKey(key);
             
             BitArray encrypted_message = Utils.makeMessage(message);
             StringBuilder sb = new StringBuilder();

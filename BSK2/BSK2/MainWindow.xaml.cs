@@ -91,24 +91,18 @@ namespace BSK2
             }
         }
 
-        private void EncryptS1(object sender, RoutedEventArgs e)
+        private void Encrypt(object sender, RoutedEventArgs e)
         {
-            Utils.Encrypt("test.bin", "output.bin", s1.Text);            
+            Utils.EncryptWithAddZero(input.Text, "output1.bin", s1.Text);
+            Utils.Decrypt("output1.bin", "output2.bin", s2.Text);
+            Utils.Encrypt("output2.bin", "output3.bin", s1.Text);
         }
 
-        private void EncryptS2(object sender, RoutedEventArgs e)
+        private void Decrypt(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void DecryptS1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void DecryptS2(object sender, RoutedEventArgs e)
-        {
-
+            Utils.Decrypt("output3.bin", "output4.bin", s2.Text);
+            Utils.Encrypt("output4.bin", "output5.bin", s1.Text);
+            Utils.DecryptWithDeletingZero("output5.bin", "result.bin", s2.Text);
         }
     }
 }

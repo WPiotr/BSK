@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
-using System.IO;
-using System.Windows;
+﻿
 
 namespace BSK2
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Collections;
+    using System.IO;
+    using System.Windows;
+
     public class Utils
     {
         private static Key key;
 
-
-        public static void Encrypt(string file_input, string file_output, string key1)
+        public static void EncryptWithAddZero(string file_input, string file_output, string key1)
         {
 
             FileStream input;
@@ -62,6 +63,192 @@ namespace BSK2
                         BitArray encrypted_message = Utils.makeMessage(lol);
                         bw.Write(encrypted_message.ToByteArrayRev());
                         bw.Write(block_do_zapisu);
+                    }
+                    else
+                    {
+                        BitArray encrypted_message = Utils.makeMessage(block);
+                        bw.Write(encrypted_message.ToByteArrayRev());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                input.Close();
+                output.Close();
+                br.Close();
+                bw.Close();
+            }
+            finally
+            {
+                input.Close();
+                output.Close();
+                br.Close();
+                bw.Close();
+            }
+        }
+
+        public static void DecryptWithDeletingZero(string file_input, string file_output, string key1)
+        {
+            FileStream input;
+            BinaryReader br;
+            FileStream output;
+            BinaryWriter bw;
+            byte[] block;
+
+            key = new Key(key1);
+            Utils.key.makeKey();
+            Utils.key.reverseKey();
+            try
+            {
+                input = new FileStream(file_input, FileMode.Open, FileAccess.Read);
+                br = new BinaryReader(input);
+                output = new FileStream(file_output, FileMode.Create, FileAccess.Write);
+                bw = new BinaryWriter(output);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+            try
+            {
+                byte[] prev_block = new byte[8];
+                while ((block = br.ReadBytes(8)).Length > 0)
+                {
+                    if (block.Length < 8)
+                    {
+                        int zero_count = (int)block[0];
+                        prev_block = Utils.makeMessage(prev_block).ToByteArrayRev();
+                        byte[] result_block = new byte[prev_block.Length-zero_count];
+                        for (int i = 0; i < prev_block.Length-zero_count; i++)
+                        {
+                            result_block[i] = prev_block[i];
+                        }
+                        
+                        bw.Write(result_block);
+
+                    }
+                    else if (input.Position > input.Length - 16)
+                    {
+                        
+                    }
+                    else
+                    {
+                        BitArray encrypted_message = Utils.makeMessage(block);
+                        bw.Write(encrypted_message.ToByteArrayRev());
+                    }
+
+                        
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                input.Close();
+                output.Close();
+                br.Close();
+                bw.Close();
+            }
+            finally
+            {
+                input.Close();
+                output.Close();
+                br.Close();
+                bw.Close();
+            }
+        }
+
+        public static void Encrypt(string file_input, string file_output, string key1)
+        {
+
+            FileStream input;
+            BinaryReader br;
+            FileStream output;
+            BinaryWriter bw;
+            byte[] block;
+
+            key = new Key(key1);
+            Utils.key.makeKey();
+
+            try
+            {
+                input = new FileStream(file_input, FileMode.Open, FileAccess.Read);
+                br = new BinaryReader(input);
+                output = new FileStream(file_output, FileMode.Create, FileAccess.Write);
+                bw = new BinaryWriter(output);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+            try
+            {
+                while ((block = br.ReadBytes(8)).Length > 0)
+                {
+                    if (input.Position == input.Length)
+                    {
+                        bw.Write(block);
+                    }
+                    else
+                    {
+                        BitArray encrypted_message = Utils.makeMessage(block);
+                        bw.Write(encrypted_message.ToByteArrayRev());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                input.Close();
+                output.Close();
+                br.Close();
+                bw.Close();
+            }
+            finally
+            {
+                input.Close();
+                output.Close();
+                br.Close();
+                bw.Close();
+            }
+        }
+
+        public static void Decrypt(string file_input, string file_output, string key1)
+        {
+
+            FileStream input;
+            BinaryReader br;
+            FileStream output;
+            BinaryWriter bw;
+            byte[] block;
+
+            key = new Key(key1);
+            Utils.key.makeKey();
+            Utils.key.reverseKey();
+            try
+            {
+                input = new FileStream(file_input, FileMode.Open, FileAccess.Read);
+                br = new BinaryReader(input);
+                output = new FileStream(file_output, FileMode.Create, FileAccess.Write);
+                bw = new BinaryWriter(output);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+            try
+            {
+                while ((block = br.ReadBytes(8)).Length > 0)
+                {
+                    if (input.Position == input.Length)
+                    {
+                        bw.Write(block);
                     }
                     else
                     {
@@ -142,7 +329,7 @@ namespace BSK2
         }
     }
 
-    static class lol
+    static class conversion
     {
 
         public static byte[] ToByteArrayRev(this BitArray bits)

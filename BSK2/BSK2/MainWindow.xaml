@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BSK2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="392" Width="517.8">
+        Title="MainWindow" Height="253.6" Width="517.8">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -29,14 +29,8 @@
             <Button Loaded="CheckBoxMsg" Margin="5" Name="buttonS2" Click="File3" Content="Wybierz plik"/>
         </StackPanel>
         <StackPanel Grid.Row="3">
-            <Button Margin="5" Click="EncryptS1" Content="Szyfruj za pomocą S1"/>
-            <Button Margin="5" Click="EncryptS2" Content="Szyfruj za pomocą S2"/>
-            <Button Margin="5" Click="DecryptS1" Content="Deszyfruj za pomocą S1"/>
-            <Button Margin="5" Click="DecryptS2" Content="Deszyfruj za pomocą S2"/>
-        </StackPanel>
-        <StackPanel  Grid.Row="4" >
-            <Label HorizontalAlignment="Center">Wynik:</Label>
-            <TextBox Name="output" Margin="5" Height="50"/>
+            <Button Margin="5" Click="Encrypt" Content="Szyfruj"/>
+            <Button Margin="5" Click="Decrypt" Content="Deszyfruj"/>
         </StackPanel>
 
     </Grid>

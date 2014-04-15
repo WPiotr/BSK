@@ -193,5 +193,7 @@ namespace Tests
             }
             return this.fromStringToBitArray(key, length);
         }
+
+        
     }
 }
