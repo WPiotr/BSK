@@ -93,8 +93,7 @@ namespace BSK2
 
         private void EncryptS1(object sender, RoutedEventArgs e)
         {
-            
-
+            Utils.Encrypt("test.bin", "output.bin", s1.Text);            
         }
 
         private void EncryptS2(object sender, RoutedEventArgs e)

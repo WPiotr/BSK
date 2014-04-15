@@ -15,7 +15,9 @@
             Message msg = new Message(path);
             CollectionAssert.AllItemsAreNotNull(msg.bitMsg);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         [TestMethod]
         public void initialPermutation()
         {

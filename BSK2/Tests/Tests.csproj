@@ -60,6 +60,7 @@
     <Compile Include="IterationTest.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="UtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSK2\BSK2.csproj">
