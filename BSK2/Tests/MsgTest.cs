@@ -147,7 +147,61 @@
 
             CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + this.bitArrayToString(excepted_message) + " Actual\n" + this.bitArrayToString(test_message.bitMsg));
         }
+        [TestMethod]
+        public void decryptMessage()
+        {
+            string message = "0123456789ABCDEF";
 
+            BitArray excepted_message;
+            string excepted_message_string = "00000001 00100011 01000101 01100111 10001001 10101011 11001101 11101111";
+
+            excepted_message = this.fromStringToBitArray(excepted_message_string);
+
+
+            Key key = new Key("133457799BBCDFF1");
+            key.initialPermutation();
+            key.splitting();
+            key.shifts();
+            key.finalPermutation();
+
+            Message test_message = new Message(message, 0);
+            test_message.initialPermutation();
+            test_message.splitting();
+
+            Iteration.setKeys(key.keys);
+            Iteration iteration = new Iteration(test_message.msg_left_side, test_message.msg_right_side);
+            for (int i = 1; i <= 16; i++)
+            {
+                iteration.ePermutation(i);
+                iteration.xorWithKey(i);
+                iteration.sBoxing(i);
+                iteration.pPermutation(i);
+                iteration.afterIteration(i);
+            }
+            test_message.reverseConnecting(iteration.leftSide[16], iteration.rightSide[16]);
+            test_message.finalPermutation();
+            
+            
+            test_message = new Message(test_message.bitMsg);
+            test_message.initialPermutation();
+            test_message.splitting();
+            key.reverseKey();
+            Iteration.setKeys(key.keys);
+            iteration = new Iteration(test_message.msg_left_side, test_message.msg_right_side);
+            for (int i = 1; i <= 16; i++)
+            {
+                iteration.ePermutation(i);
+                iteration.xorWithKey(i);
+                iteration.sBoxing(i);
+                iteration.pPermutation(i);
+                iteration.afterIteration(i);
+            }
+            test_message.reverseConnecting(iteration.leftSide[16], iteration.rightSide[16]);
+            test_message.finalPermutation();
+            
+
+            CollectionAssert.AreEqual(excepted_message, test_message.bitMsg, "Excepted:\n" + this.bitArrayToString(excepted_message) + " Actual\n" + this.bitArrayToString(test_message.bitMsg));
+        }
         private string bitArrayToString(BitArray array)
         {
             string bitArray = "";

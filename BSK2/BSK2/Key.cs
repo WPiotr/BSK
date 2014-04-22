@@ -61,11 +61,11 @@ namespace BSK2
         public void reverseKey() 
         {
             BitArray[] keys_tmp = keys;
-            Array.Reverse(keys_tmp);
             keys = new BitArray[keys_tmp.Length];
-            for (int i = 0; i < keys.Length-1; i++)
+            for (int i = 1; i < keys.Length; i++)
             {
-                keys[i + 1] = keys_tmp[i];
+                keys[i] = keys_tmp[keys.Length-i];
+
             }
         }
 

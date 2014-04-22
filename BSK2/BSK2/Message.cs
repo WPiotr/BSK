@@ -52,6 +52,10 @@ namespace BSK2
         {
             this.bitMsg = new BitArray(testArray);
         }
+        public Message(BitArray testArray)
+        {
+            this.bitMsg = new BitArray(testArray);
+        }
 
         public Message(string message_in_hexa, int hexa)
         {

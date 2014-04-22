@@ -19,14 +19,10 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Margin="5">S1:</Label>
             <TextBox Margin="5" Width="150" Name="s1"/>
-            <CheckBox Margin="5" Name="CheckBox2" Click="CheckBoxMsg" Content="Z pliku"/>
-            <Button Loaded="CheckBoxMsg" Margin="5"  Name="buttonS1" Click="File2" Content="Wybierz plik" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <Label Margin="5">S2:</Label>
             <TextBox Margin="5" Width="150" Name="s2"></TextBox>
-            <CheckBox Margin="5" Name="CheckBox3" Click="CheckBoxMsg" Content="Z pliku"/>
-            <Button Loaded="CheckBoxMsg" Margin="5" Name="buttonS2" Click="File3" Content="Wybierz plik"/>
         </StackPanel>
         <StackPanel Grid.Row="3">
             <Button Margin="5" Click="Encrypt" Content="Szyfruj"/>
