@@ -89,7 +89,8 @@ namespace BSK2
                 BinaryWriter bw = new BinaryWriter(fs);
                 bw.Write(input.Text);
                 bw.Close();
-                Utils.EncryptWithAddZero("Input_text.bin", "output1.bin", s1.Text);
+                Utils.EncryptWithAddZero("test.bin", "output1.bin", "133457799BBCDFF1");
+                //Utils.EncryptWithAddZero("Input_text.bin", "output1.bin", s1.Text);
                 //Utils.Decrypt("output1.bin", "output2.bin", s2.Text);
                 //Utils.Encrypt("output2.bin", "output3.bin", s1.Text);
             }
@@ -103,9 +104,10 @@ namespace BSK2
 
         private void Decrypt(object sender, RoutedEventArgs e)
         {
-                //Utils.Decrypt("output3.bin", "output4.bin", s1.Text);
-                //Utils.Encrypt("output4.bin", "output5.bin", s2.Text);
-                Utils.DecryptWithDeletingZero("output1.bin", "result.bin", s1.Text);
+            //Utils.Decrypt("output3.bin", "output4.bin", s1.Text);
+            //Utils.Encrypt("output4.bin", "output5.bin", s2.Text);
+            Utils.DecryptWithDeletingZero("output1.bin", "result.bin", "133457799BBCDFF1");
+            //Utils.DecryptWithDeletingZero("output1.bin", "result.bin", s1.Text);
         }
     }
 }

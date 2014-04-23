@@ -137,7 +137,7 @@ namespace BSK2
                     else
                     {
                         BitArray encrypted_message = Utils.makeMessage(napraw(block));
-                        bw.Write(encrypted_message.ToByteArray());
+                        bw.Write(napraw(encrypted_message.ToByteArray()));
                     }
 
                         
@@ -164,17 +164,18 @@ namespace BSK2
             for (int i = 0; i < b.Length;i++ )
             {
                 byte lol = b[i];
-                b[i] = 0;
+                int kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow = 0;
                 for (int j = 0; j < 8; j++)
                 {
 
-                    if (lol.IsBitSet(8 - j))
+                    if (lol.IsBitSet(j))
                     {
-                        b[i] += 1;
+                        kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow  += 1;
                     }
-                    b[i] *= 2;
+                    kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow *= 2;
                 }
-                b[i] /= 2; 
+                kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow /= 2;
+                b[i] = (byte)kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow;
             }
             return b;
         }
@@ -350,29 +351,7 @@ namespace BSK2
     static class conversion
     {
 
-        public static byte[] ToByteArrayRev(this BitArray bits)
-        {
-            int numBytes = bits.Count / 8;
-            if (bits.Count % 8 != 0) numBytes++;
-
-            byte[] bytes = new byte[numBytes];
-            int byteIndex = 0, bitIndex = 0;
-
-            for (int i = 0; i < bits.Count; i++)
-            {
-                if (bits[i])
-                    bytes[byteIndex] |= (byte)(1 << (7 - bitIndex));
-
-                bitIndex++;
-                if (bitIndex == 8)
-                {
-                    bitIndex = 0;
-                    byteIndex++;
-                }
-            }
-
-            return bytes;
-        }
+        
         public static bool IsBitSet(this byte b, int pos)
         {
             return (b & (1 << pos)) != 0;
@@ -416,6 +395,28 @@ namespace BSK2
                     byteIndex++;
                 }
             }
+            return bytes;
+        }
+        public static byte[] ToByteArrayRev(this BitArray bits)
+        {
+            int numBytes = bits.Count / 8;
+            if (bits.Count % 8 != 0) numBytes++;
+            byte[] bytes = new byte[numBytes];
+            int byteIndex = 0, bitIndex = 0;
+
+            for (int i = 0; i < bits.Count; i++)
+            {
+                if (bits[i])
+                    bytes[byteIndex] |= (byte)(1 << (7 - bitIndex));
+
+                bitIndex++;
+                if (bitIndex == 8)
+                {
+                    bitIndex = 0;
+                    byteIndex++;
+                }
+            }
+
             return bytes;
         }
     }
