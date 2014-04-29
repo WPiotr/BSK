@@ -66,11 +66,11 @@ namespace BSK2
                 //Utils.EncryptWithAddZero("test3.bin", "output1.bin", "133457799BBCDFF1");
                 string s = s1.Text.ToUpper();
 
-                Utils.EncryptWithAddZero(input.Text, "output1.bin", s1.Text.ToUpper());
-                Utils.Decrypt("output1.bin", "output2.bin", s2.Text.ToUpper());
-                Utils.Encrypt("output2.bin", "output3.bin", s1.Text.ToUpper());
+                //Utils.EncryptWithAddZero(input.Text, "output1.bin", s1.Text.ToUpper());
+                //Utils.Decrypt("output1.bin", "output2.bin", s2.Text.ToUpper());
+                //Utils.Encrypt("output2.bin", "output3.bin", s1.Text.ToUpper());
 
-                //Utils.EncryptWithAddZero("ala.bin", "output1.bin", "3B3898371520f75");
+                Utils.EncryptWithAddZero("ala.bin", "output1.bin", "3b3898371520f75e".ToUpper());
                 //Utils.Decrypt("output1.bin", "output2.bin", "922fb510c71f436e");
                 //Utils.Encrypt("output2.bin", "output3.bin", "3b3898371520f75e");
 
@@ -89,13 +89,13 @@ namespace BSK2
 
             //Utils.Decrypt("output3.bin", "output4.bin", "3b3898371520f75e");
             //Utils.Encrypt("output4.bin", "output5.bin", "922fb510c71f436e");
-            //Utils.DecryptWithDeletingZero("output5.bin", "result.bin", "3b3898371520f75e");
+            Utils.DecryptWithDeletingZero("output1.bin", "result.bin", "3b3898371520f75e".ToUpper());
 
 
 
-            Utils.Decrypt("output3.bin", "output4.bin", s1.Text.ToUpper());
-            Utils.Encrypt("output4.bin", "output5.bin", s2.Text.ToUpper());
-            Utils.DecryptWithDeletingZero("output5.bin", "result.bin", s1.Text.ToUpper());
+            //Utils.Decrypt("output3.bin", "output4.bin", s1.Text.ToUpper());
+            //Utils.Encrypt("output4.bin", "output5.bin", s2.Text.ToUpper());
+            //Utils.DecryptWithDeletingZero("output5.bin", "result.bin", s1.Text.ToUpper());
         }
     }
 }

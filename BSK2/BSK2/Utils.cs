@@ -60,16 +60,16 @@ namespace BSK2
                         }
                         int block_do_zapisu = 8 - block.Length;
 
-                        BitArray encrypted_message = Utils.makeMessage(lol);
-                        bw.Write(napraw(encrypted_message.ToByteArray()));
+                        BitArray encrypted_message = Utils.makeMessage(napraw(lol));
+                        bw.Write((encrypted_message.ToByteArray()));
                         BitArray b = new BitArray(new int[] { block_do_zapisu, 0 });
 
-                        b = Utils.makeMessage(b.ToByteArray());
+                        b = Utils.makeMessage(napraw(b.ToByteArray()));
                         bw.Write(napraw(b.ToByteArray()));
                     }
                     else
                     {
-                        BitArray encrypted_message = Utils.makeMessage(block);
+                        BitArray encrypted_message = Utils.makeMessage(napraw(block));
                         bw.Write(napraw(encrypted_message.ToByteArray()));
                     }
                 }

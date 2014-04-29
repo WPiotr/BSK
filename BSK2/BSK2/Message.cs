@@ -84,11 +84,12 @@ namespace BSK2
 
         public void initialPermutation()
         {
-            BitArray copy_message = new BitArray(this.bitMsg);
-            for (int i = 0; i < 64; i++)
+            BitArray resultArray = new BitArray(ipTable.Length);
+            for (int i = 0; i < ipTable.Length; i++)
             {
-                this.bitMsg[i] = copy_message[ipTable[i] - 1];
+                resultArray[i] = this.bitMsg[ipTable[i] - 1];
             }
+            this.bitMsg = resultArray;
         }
         public void splitting()
         {
