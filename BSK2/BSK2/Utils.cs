@@ -58,16 +58,19 @@ namespace BSK2
                                 lol[i] += (byte)0;
                             }
                         }
-                        Int64 block_do_zapisu = 8 - block.Length;
+                        int block_do_zapisu = 8 - block.Length;
 
                         BitArray encrypted_message = Utils.makeMessage(lol);
-                        bw.Write(encrypted_message.ToByteArray());
-                        bw.Write(block_do_zapisu);
+                        bw.Write(napraw(encrypted_message.ToByteArray()));
+                        BitArray b = new BitArray(new int[] { block_do_zapisu, 0 });
+
+                        b = Utils.makeMessage(b.ToByteArray());
+                        bw.Write(napraw(b.ToByteArray()));
                     }
                     else
                     {
                         BitArray encrypted_message = Utils.makeMessage(block);
-                        bw.Write(encrypted_message.ToByteArray());
+                        bw.Write(napraw(encrypted_message.ToByteArray()));
                     }
                 }
             }
@@ -115,33 +118,37 @@ namespace BSK2
             try
             {
                 byte[] prev_block = new byte[8];
+                byte[] prev_block_two = new byte[8];
+                bool start = false;
+                bool start2 = false;
                 while ((block = br.ReadBytes(8)).Length > 0)
                 {
-                    if (block.Length < 8)
+                    if (start)
                     {
-                        int zero_count = (int)block[0];
-                        prev_block = Utils.makeMessage(prev_block).ToByteArray();
-                        byte[] result_block = new byte[prev_block.Length-zero_count];
-                        for (int i = 0; i < prev_block.Length-zero_count; i++)
+                        if (start2)
                         {
-                            result_block[i] = prev_block[i];
+
+                            BitArray encrypted_message = Utils.makeMessage((prev_block_two));
+                            bw.Write(napraw(encrypted_message.ToByteArray()));
                         }
-                        
-                        bw.Write(result_block);
-
+                        start2 = true;
+                        prev_block_two = prev_block; 
                     }
-                    else if (input.Position > input.Length - 16)
-                    {
-                        prev_block = block;
-                    }
-                    else
-                    {
-                        BitArray encrypted_message = Utils.makeMessage(napraw(block));
-                        bw.Write(napraw(encrypted_message.ToByteArray()));
-                    }
-
-                        
+                    start = true;
+                    prev_block = block;
+                    
                 }
+                prev_block_two = Utils.makeMessage(napraw(prev_block_two)).ToByteArray();
+                byte[] zero_count = Utils.makeMessage(napraw(prev_block)).ToByteArray();
+                
+                byte[] result_block = new byte[prev_block.Length - zero_count[0]];
+                for (int i = 0; i < prev_block_two.Length - zero_count[0]; i++)
+                {
+                    result_block[i] = prev_block_two[i];
+                }
+
+                bw.Write(napraw(result_block));
+
             }
             catch (Exception ex)
             {
@@ -161,7 +168,7 @@ namespace BSK2
         }
         static byte[] napraw(byte[] b)
         {
-            for (int i = 0; i < b.Length;i++ )
+            for (int i = 0; i < b.Length; i++)
             {
                 byte lol = b[i];
                 int kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow = 0;
@@ -170,7 +177,7 @@ namespace BSK2
 
                     if (lol.IsBitSet(j))
                     {
-                        kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow  += 1;
+                        kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow += 1;
                     }
                     kurwa_o_ja_jebie_w_pizdu_dlaczego_byte_ma_zakres_256_znakow *= 2;
                 }
@@ -208,15 +215,9 @@ namespace BSK2
             {
                 while ((block = br.ReadBytes(8)).Length > 0)
                 {
-                    if (input.Position == input.Length)
-                    {
-                        bw.Write(block);
-                    }
-                    else
-                    {
+
                         BitArray encrypted_message = Utils.makeMessage(block);
-                        bw.Write(encrypted_message.ToByteArrayRev());
-                    }
+                        bw.Write(napraw(encrypted_message.ToByteArray()));
                 }
             }
             catch (Exception ex)
@@ -260,20 +261,13 @@ namespace BSK2
                 MessageBox.Show(ex.Message);
                 return;
             }
-
+            ////
             try
             {
                 while ((block = br.ReadBytes(8)).Length > 0)
                 {
-                    if (input.Position == input.Length)
-                    {
-                        bw.Write(block);
-                    }
-                    else
-                    {
-                        BitArray encrypted_message = Utils.makeMessage(block);
-                        bw.Write(encrypted_message.ToByteArrayRev());
-                    }
+                    BitArray encrypted_message = Utils.makeMessage((block));
+                    bw.Write(napraw(encrypted_message.ToByteArray()));
                 }
             }
             catch (Exception ex)
@@ -351,7 +345,7 @@ namespace BSK2
     static class conversion
     {
 
-        
+
         public static bool IsBitSet(this byte b, int pos)
         {
             return (b & (1 << pos)) != 0;

@@ -13,8 +13,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Label Margin="5" HorizontalAlignment="Center">Wejście</Label>
             <TextBox Margin="5" Width="150" Name="input" ></TextBox>
-            <CheckBox Margin="5" Name="CheckBox1" Click="CheckBoxMsg" Content="Z pliku"/>
-            <Button Loaded="CheckBoxMsg" Margin="5" Click="File1" Name="msgButton" Content="Wybierz plik"/>
+            <Button  Margin="5" Click="File1" Name="msgButton" Content="Wybierz plik"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Label Margin="5">S1:</Label>
