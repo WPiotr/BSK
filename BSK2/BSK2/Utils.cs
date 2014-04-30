@@ -65,12 +65,12 @@ namespace BSK2
                         BitArray b = new BitArray(new int[] { block_do_zapisu, 0 });
 
                         b = Utils.makeMessage(napraw(b.ToByteArray()));
-                        bw.Write(napraw(b.ToByteArray()));
+                        bw.Write((b.ToByteArray()));
                     }
                     else
                     {
                         BitArray encrypted_message = Utils.makeMessage(napraw(block));
-                        bw.Write(napraw(encrypted_message.ToByteArray()));
+                        bw.Write((encrypted_message.ToByteArray()));
                     }
                 }
             }
@@ -128,8 +128,8 @@ namespace BSK2
                         if (start2)
                         {
 
-                            BitArray encrypted_message = Utils.makeMessage((prev_block_two));
-                            bw.Write(napraw(encrypted_message.ToByteArray()));
+                            BitArray encrypted_message = Utils.makeMessage(napraw(prev_block_two));
+                            bw.Write((encrypted_message.ToByteArray()));
                         }
                         start2 = true;
                         prev_block_two = prev_block; 
@@ -141,13 +141,13 @@ namespace BSK2
                 prev_block_two = Utils.makeMessage(napraw(prev_block_two)).ToByteArray();
                 byte[] zero_count = Utils.makeMessage(napraw(prev_block)).ToByteArray();
                 
-                byte[] result_block = new byte[prev_block.Length - zero_count[0]];
+                byte[] result_block = new byte[prev_block.Length - zero_count[0]/8];
                 for (int i = 0; i < prev_block_two.Length - zero_count[0]; i++)
                 {
                     result_block[i] = prev_block_two[i];
                 }
 
-                bw.Write(napraw(result_block));
+                bw.Write((result_block));
 
             }
             catch (Exception ex)
@@ -216,8 +216,8 @@ namespace BSK2
                 while ((block = br.ReadBytes(8)).Length > 0)
                 {
 
-                        BitArray encrypted_message = Utils.makeMessage(block);
-                        bw.Write(napraw(encrypted_message.ToByteArray()));
+                        BitArray encrypted_message = Utils.makeMessage(napraw(block));
+                        bw.Write((encrypted_message.ToByteArray()));
                 }
             }
             catch (Exception ex)
@@ -266,8 +266,8 @@ namespace BSK2
             {
                 while ((block = br.ReadBytes(8)).Length > 0)
                 {
-                    BitArray encrypted_message = Utils.makeMessage((block));
-                    bw.Write(napraw(encrypted_message.ToByteArray()));
+                    BitArray encrypted_message = Utils.makeMessage(napraw(block));
+                    bw.Write((encrypted_message.ToByteArray()));
                 }
             }
             catch (Exception ex)
